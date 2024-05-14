@@ -1,0 +1,15 @@
+.idea/
+venv/
+.env
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media
+celerybeat-schedule.bak
+celerybeat-schedule.dat
+celerybeat-schedule.dir
+cache_files/
