@@ -1,6 +1,9 @@
 Django
 django-allauth
 
+# Confidential files
+python-dotenv  # file.env with confidential service data
+
 # pip packages for code verification. The configuration file .flake8
 flake8
 flake8-import-order
