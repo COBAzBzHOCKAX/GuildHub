@@ -1,7 +1,6 @@
+from config import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-
-from config import settings
 
 
 class Newsletter(models.Model):
@@ -14,3 +13,16 @@ class Newsletter(models.Model):
     class Meta:
         verbose_name = _('Newsletter')
         verbose_name_plural = _('Newsletters')
+
+    def __str__(self):
+        return self.title
+
+    def short_title(self):
+        if len(self.title) > 50:
+            return self.title[:50] + '...'
+        return self.title
+
+    def short_text(self):
+        if len(self.text) > 50:
+            return self.text[:50] + '...'
+        return self.text

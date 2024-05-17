@@ -1,4 +1,6 @@
-from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
+import datetime
+
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.core.mail import send_mail
 from django.db import models
 from django.utils import timezone
@@ -8,7 +10,7 @@ from django.utils.translation import gettext_lazy as _
 class UserManager(BaseUserManager):
     def create_user(self, email, password, **kwargs):
         """
-        Creates a user with the given email and optional password.
+        Create a user with the given email and optional password.
 
         Parameters:
             email (str): The email of the user.
@@ -31,9 +33,7 @@ class UserManager(BaseUserManager):
         return user
 
     def create_superuser(self, email, password):
-        """
-        Creates and saves a superuser with the given email and password.
-        """
+        """Create and save a superuser with the given email and password."""
         user = self.create_user(email, password=password)
         user.is_superuser = True
         user.is_staff = True
@@ -74,7 +74,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         blank=True,
         null=True,
         default='default.png',
-        verbose_name=_('Avatar'),)
+        verbose_name=_('Avatar'),
+    )
     date_birth = models.DateField(
         blank=True,
         null=True,
@@ -135,9 +136,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         self.email = self.__class__.objects.normalize_email(self.email)
 
     def get_full_name(self):
-        """
-        Return the first_name plus the last_name, with a space in between.
-        """
+        """Return the first_name plus the last_name, with a space in between."""
         full_name = "%s %s" % (self.first_name, self.last_name)
         return full_name.strip()
 
@@ -148,3 +147,15 @@ class User(AbstractBaseUser, PermissionsMixin):
     def email_user(self, subject, message, from_email=None, **kwargs):
         """Send an email to this user."""
         send_mail(subject, message, from_email, [self.email], **kwargs)
+
+    def age(self):
+        """Return the current age of the user based on the date of birth."""
+        if self.date_birth:
+            today = datetime.date.today()
+            age = today.year - self.date_birth.year - (
+                (today.month, today.day) < (self.date_birth.month, self.date_birth.day)
+            )
+            return age
+        return None
+
+    age.short_description = _('Age')

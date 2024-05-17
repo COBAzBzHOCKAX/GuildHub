@@ -1,17 +1,18 @@
+# Web framework
 Django
 Pillow
 
-# localization
+# Localization
 django-modeltranslation
 
-# allauth
+# Authentication and account management
 django-allauth
 django-allauth[socialaccount]
 
-# Confidential files
+# Environment variables
 python-dotenv  # file.env with confidential service data
 
-# pip packages for code verification. The configuration file .flake8
+# Code verification tools
 flake8
 flake8-import-order
 flake8_docstrings
