@@ -1,0 +1,26 @@
+{% load static %}
+{% load i18n %}
+
+<div class="ad-header">
+    <div class="avatar" onclick="event.stopPropagation(); location.href='{% url 'profile' ad.user.id %}'"
+         style="cursor: pointer;">
+        {% if ad.user.avatar %}
+            <img src="{{ ad.user.avatar.url }}" alt="{{ ad.user.nickname }}" class="avatar-img">
+        {% else %}
+            <img src="{% static 'images/avatars/default.png' %}" alt="Default Avatar" class="avatar-img">
+        {% endif %}
+    </div>
+    <div class="user-info" style="cursor: pointer;">
+        <a href="{% url 'profile' ad.user.id %}" class="nickname">{{ ad.user.nickname }}</a>
+        <br>
+        {% if ad.user.first_name %}
+            <span>{{ ad.user.first_name }}</span>
+        {% endif %}
+        {% if ad.user.age %}
+            <span>{% trans 'Age' %}: {{ ad.user.age }}</span>
+        {% endif %}
+        {% if ad.user.gender %}
+            <span>{% trans 'Gender' %}: {{ ad.user.get_gender_display }}</span>
+        {% endif %}
+    </div>
+</div>

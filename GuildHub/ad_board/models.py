@@ -49,6 +49,17 @@ class Ad(models.Model):
             return self.text[:50] + '...'
         return self.text
 
+    def date_of_publication(self):
+        """Set publication date if published, else set to None."""
+        if self.is_published and not self.date_published:
+            self.date_published = timezone.now()
+        else:
+            self.date_published = None
+
+    def save(self, *args, **kwargs):
+        self.date_of_publication()
+        super().save(*args, **kwargs)
+
 
 class Category(models.Model):
     category_name = models.CharField(

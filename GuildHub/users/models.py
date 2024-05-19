@@ -64,17 +64,27 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
     nickname = models.CharField(
         max_length=255,
-        blank=True,
-        null=True,
         verbose_name=_('Nickname'),
         help_text=_('Enter your nickname in the game'),
     )
     avatar = models.ImageField(
-        upload_to='avatars',
+        upload_to='avatars/',
         blank=True,
         null=True,
-        default='default.png',
         verbose_name=_('Avatar'),
+    )
+
+    class GenderChoices(models.TextChoices):
+        MALE = 'M', _('Male')
+        FEMALE = 'F', _('Female')
+        OTHER = 'O', _('Other')
+
+    gender = models.CharField(
+        max_length=1,
+        choices=GenderChoices.choices,
+        blank=True,
+        null=True,
+        verbose_name=_('Gender'),
     )
     date_birth = models.DateField(
         blank=True,
@@ -116,6 +126,12 @@ class User(AbstractBaseUser, PermissionsMixin):
         default=False,
         help_text=_("Designates whether the user can log into this admin site."),
     )
+    is_banned = models.BooleanField(
+        _("banned"),
+        default=False,
+        help_text=_("Designates whether this user should be treated as banned."),
+    )
+    banned_until = models.DateTimeField(blank=True, null=True)
     date_joined = models.DateTimeField(_("date joined"), default=timezone.now)
 
     objects = UserManager()
@@ -130,10 +146,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     class Meta:
         verbose_name = _("User")
         verbose_name_plural = _("Users")
-
-    def clean(self):
-        super().clean()
-        self.email = self.__class__.objects.normalize_email(self.email)
 
     def get_full_name(self):
         """Return the first_name plus the last_name, with a space in between."""
@@ -159,3 +171,44 @@ class User(AbstractBaseUser, PermissionsMixin):
         return None
 
     age.short_description = _('Age')
+
+    def ban(self, until):
+        """
+        Bans the user by setting the `is_banned` attribute to `True` and setting the `banned_until` attribute to the given `until` date.
+        Saves the changes to the database.
+
+        Parameters:
+            until (datetime): The date until which the user will be banned.
+
+        Returns:
+            None
+        """
+        self.is_banned = True
+        self.banned_until = until
+        self.save()
+
+    def unban(self):
+        """
+        Unbans the user by setting the `is_banned` attribute to `False` and setting the `banned_until` attribute to `None`.
+        Saves the changes to the database.
+
+        Parameters:
+            self (User): The user object.
+
+        Returns:
+            None
+        """
+        self.is_banned = False
+        self.banned_until = None
+        self.save()
+
+    def clean(self):
+        super().clean()
+        self.email = self.__class__.objects.normalize_email(self.email)
+
+        if self.banned_until and self.banned_until < timezone.now():
+            self.unban()
+
+    def save(self, *args, **kwargs):
+        self.clean()
+        super().save(*args, **kwargs)

@@ -8325,3 +8325,85 @@ a[data-toggle="collapse"] {
   .btn.btn-primary:hover, .btn.btn-primary:focus {
     background: #3e64ff !important;
     border-color: #3e64ff !important; }
+
+
+
+/* --- custom user style --- */
+.container {
+    max-width: 1024px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.ad-container {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    position: relative;
+    transition: background-color 0.3s; /* Плавный переход при изменении цвета фона */
+}
+
+.ad-container:hover {
+    background-color: #e0e0e0; /* Цвет фона при наведении */
+}
+
+.ad-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.avatar {
+    flex-shrink: 0;
+}
+
+.avatar-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+    background-color: #ffffff;
+}
+
+.user-info {
+    flex-grow: 1;
+}
+
+.nickname {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.ad-body {
+    margin-bottom: 15px;
+}
+
+.ad-footer {
+    text-align: right;
+}
+
+.response-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.response-button:hover {
+    background-color: #0056b3;
+    color: white;
+}
+
+.nickname {
+    color: #6c757d;
+    text-decoration: none; /* Убираем подчеркивание по умолчанию */
+    transition: color 0.3s, text-decoration 0.3s; /* Плавный переход цвета и подчеркивания */
+}
+
+.nickname:hover {
+    color: #2c3034;
+    text-decoration: underline; /* Подчеркивание при наведении (не работает) */
+}

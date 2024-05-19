@@ -1,0 +1,100 @@
+{% load i18n %}
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}{{ flatpage.title }}{% endblock title %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href={% static "css/style.css" %}>
+</head>
+<body>
+
+<div class="wrapper d-flex align-items-stretch">
+    <nav id="sidebar" class="active">
+        <h4><a href="#" class="logo">  <!-- НАДО ЗАМЕНИТЬ ССЫЛКУ И ЛОГО!!! -->
+            Guild Hub
+        </a></h4>
+        <ul class="list-unstyled components mb-5">
+            <li class="active">
+                <a href="#"><span class="fa fa-home"></span> {% trans 'News' %}</a>
+            </li>
+            <li>
+                <a href={% url 'ad_board' %}><span class="fa fa-clipboard"></span> {% trans 'Ad board' %}</a>
+            </li>
+            <li>
+                <a href="#"><span class="fa fa-trophy"></span> {% trans 'Leagues' %}</a>
+            </li>
+            <li>
+                <a href="#"><span class="fa fa-group"></span> {% trans 'Teams' %}</a>
+            </li>
+            <li>
+                <a href="#"><span class="fa fa-user"></span> {% trans 'Gamers' %}</a>
+            </li>
+            <li>
+                <a href="#"><span class="fa fa-lightbulb-o"></span> {% trans 'Ideas' %}</a>
+            </li>
+        </ul>
+
+        <div class="footer">
+            <p>
+                Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                All rights reserved <br> by <a class="text-light" href="https://t.me/COBA_B_HOCKAX" target="_blank">COBA_B_HOCKAX</a>
+            </p>
+        </div>
+    </nav>
+
+    <!-- Page Content  -->
+    <div id="content" class="p-4 p-md-5">
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+
+                <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                    <i class="fa fa-bars"></i>
+                    <span class="sr-only">{% trans 'Toggle Menu' %}</span>
+                </button>
+                <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fa fa-bars"></i>
+                </button>
+
+                <!-- НАСТРОИТЬ ОТОБРАЖЕНИЕ В ЗАВИССИМОСТИ ОТ ЗАЛОГИНЕННОСТИ -->
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">{% trans 'Chats' %}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">{% trans 'My response' %}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">{% trans 'My ads' %}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href={% url 'account_login' %}>{% trans 'Account' %}</a>
+                            <!-- Пока не залогинен, иначе должен быть никнейм или почта -->
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        {% block content %}{{ flatpage.content }}{% endblock content %}
+        {#        <h2 class="mb-4">Sidebar #07</h2>#}
+        {#        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>#}
+        {#        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>#}
+    </div>
+</div>
+
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/popper.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

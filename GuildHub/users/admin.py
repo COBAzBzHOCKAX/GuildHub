@@ -10,23 +10,31 @@ UserModel = apps.get_model(*settings.AUTH_USER_MODEL.split('.', 1))
 class CustomUserAdmin(UserAdmin):
     model = UserModel
 
-    list_display = ('id', 'email', 'nickname', 'age', 'is_staff', 'is_active',)
+    list_display = ('id', 'email', 'nickname', 'age', 'is_staff', 'is_active', 'is_banned')
     list_display_links = ('id', 'email', 'nickname')
-    list_filter = ('is_staff', 'is_active')
-    search_fields = ('nickname', 'email')
+    list_filter = ('is_staff', 'is_active', 'is_banned')
+    search_fields = ('nickname', 'email', 'first_name', 'last_name', 'phone_number', 'discord_url_profile')
     ordering = ('email',)
 
     fieldsets = (
         (None, {
             'fields': ('email', 'password')
         }),
-        (_('Permissions'), {
-            'fields': ('is_staff', 'is_active')
-        }),
         (_('Personal info'), {
             'fields': (
-                'first_name', 'last_name', 'nickname', 'date_birth', 'phone_number',
+                'avatar', 'nickname', 'first_name', 'last_name', 'gender', 'date_birth', 'phone_number',
                 'discord_url_profile', 'about_me'
+            )
+        }),
+        (_('Permissions'), {
+            'fields': (
+                'is_staff',
+                'is_active',
+                'is_superuser',
+                'is_banned',
+                'banned_until',
+                "groups",
+                "user_permissions",
             )
         }),
     )
