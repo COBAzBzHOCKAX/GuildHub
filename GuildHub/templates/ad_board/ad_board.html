@@ -7,22 +7,57 @@
 
 {% block content %}
     <div class="container">
+        <h2>{% trans "Ad board" %}</h2>
+        
+        {# filter #}
+        {% include 'ad_board/ad_board_filter.html' %}
+        <br>
+
         {% if ad_list %}
-            <h2>{% trans "Все посты" %}</h2>
+
+            {# Ad board pagination #}
+            {% include 'ad_board/ad_board_pagination.html' %}
+            <br>
+
             {% for ad in ad_list %}
-                <div class="ad-container" onclick="location.href='{% url 'ad' ad.id %}'" style="cursor: pointer;">
-                    {% include 'users/user_badge.html' %}
+                <div class="ad-container" onclick="location.href='{% url 'ad_detail' ad.id %}'" style="cursor: pointer;">
+                    
+                    {# User badge #}
+                    {% include 'users/user_badge.html' with user=ad.user ad=ad %}
+                    
                     <div class="ad-body">
                         <h5>{{ ad.title }}</h5>
-                        <p>{{ ad.text }}</p>
+                        <p class="category">{% trans 'Category' %}: {{ ad.category.category_name }}</p>
+                        <p>{{ ad.text.html | truncatewords_html:50 | truncatechars_html:300 | safe }}</p>
                     </div>
-                    <div class="ad-footer">
-                        <a href="{% url 'profile' ad.user.id %}" class="response-button">{% trans 'Response' %}</a>
-                    </div>
+                    {% include 'ad_board/response_button.html' with user=ad.user %}
                 </div>
             {% endfor %}
+
+            {# Ad board pagination #}
+            {% include 'ad_board/ad_board_pagination.html' %}
+
         {% else %}
-            <h2>{% trans "Постов нет" %}</h2>
+            <h2>{% trans "No Posts" %}</h2>
         {% endif %}
     </div>
+
+    <script>
+        function toggleFilterForm() {
+            var formContainer = document.getElementById('filter-form-container');
+            formContainer.style.display = (formContainer.style.display === 'none') ? 'block' : 'none';
+        }
+    </script>
+
+    <style>
+        #toggle-filter-form, #clear-filter {
+            margin-bottom: 10px;
+            display: inline-block;
+            margin-right: 10px;
+        }
+        #applied-filters {
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+    </style>
 {% endblock content %}

@@ -1,11 +1,16 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block title %}
-{{ ad.title }}
+    {{ ad.title }}
 {% endblock title %}
 
 {% block content %}
-{% include 'users/user_badge.html' %}
-<h1>{{ ad.title }}</h1>
-<p>{{ ad.text }}</p>
+    <div class="container">
+        {% include 'users/user_badge.html' with user=ad.user ad=ad %}
+        <h1>{{ ad.title }}</h1>
+        <p class="category">{% trans 'Category' %}: {{ ad.category.category_name }}
+        <p class="ad-text">{{ ad.text.html | safe }}</p>
+        {% include 'ad_board/response_button.html' with user=ad.user %}
+    </div>
 {% endblock content %}

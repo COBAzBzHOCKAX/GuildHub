@@ -2,25 +2,28 @@
 {% load i18n %}
 
 <div class="ad-header">
-    <div class="avatar" onclick="event.stopPropagation(); location.href='{% url 'profile' ad.user.id %}'"
+    <div class="avatar" onclick="event.stopPropagation(); location.href='{% url 'profile' user.id %}'"
          style="cursor: pointer;">
-        {% if ad.user.avatar %}
-            <img src="{{ ad.user.avatar.url }}" alt="{{ ad.user.nickname }}" class="avatar-img">
+        {% if user.avatar %}
+            <img src="{{ user.avatar.url }}" alt="The avatar of the player {{ user.nickname }} - Guild Hub" class="avatar-img">
         {% else %}
             <img src="{% static 'images/avatars/default.png' %}" alt="Default Avatar" class="avatar-img">
         {% endif %}
     </div>
-    <div class="user-info" style="cursor: pointer;">
-        <a href="{% url 'profile' ad.user.id %}" class="nickname">{{ ad.user.nickname }}</a>
+    <div class="user-info">
+        <a href="{% url 'profile' user.id %}" class="nickname">{{ user.nickname }}</a>
         <br>
-        {% if ad.user.first_name %}
-            <span>{{ ad.user.first_name }}</span>
-        {% endif %}
-        {% if ad.user.age %}
-            <span>{% trans 'Age' %}: {{ ad.user.age }}</span>
-        {% endif %}
-        {% if ad.user.gender %}
-            <span>{% trans 'Gender' %}: {{ ad.user.get_gender_display }}</span>
-        {% endif %}
+        <span>
+            {% if user.first_name %}{{ user.first_name }}, {% endif %}
+            {% if user.age %}{% trans 'age' %}: {{ user.age }}, {% endif %}
+            {% if user.gender %}{% trans 'gender' %}: {{ user.get_gender_display }}, {% endif %}
+            {% if user.first_name or user.age or user.gender %}<br>{% endif %}
+            {% trans 'published on' %}: 
+            {% if ad.is_published %}
+                {{ ad.date_published|date:"d M Y, H:i" }}
+            {% else %}
+                {% trans 'unpublished' %}
+            {% endif %}
+        </span>
     </div>
 </div>

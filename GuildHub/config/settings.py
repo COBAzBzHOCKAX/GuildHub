@@ -49,6 +49,11 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.flatpages',
 
+    # Third-party apps
+    'django_filters',
+    'django_quill',
+
+
     # Allauth related apps
     'allauth',
     'allauth.account',
@@ -178,6 +183,30 @@ STATICFILES_DIRS = [
 LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'locale')
 ]
+
+QUILL_CONFIGS = {
+    'default': {
+        'placeholder': 'Enter text here...',
+        'theme': 'snow',
+        'modules': {
+            'history': True,
+            'syntax': True,
+            'toolbar': [
+                [
+                    {'list': 'ordered'},
+                    {'list': 'bullet'},
+                ],
+                [
+                    {'align': []},
+                    'bold', 'italic', 'underline', 'strike', 'blockquote',
+                ],
+                ['code-block', 'link'],
+                ['image', 'video'],
+                ['clean'],
+            ]
+        }
+    }
+}
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

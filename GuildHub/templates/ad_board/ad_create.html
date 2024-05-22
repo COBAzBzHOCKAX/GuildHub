@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+<head>
+<title>
+{% block title %}
+    {% trans 'Create ad' %}
+{% endblock title %}
+</title>
+</head>
+
+{% block content %}
+    <div class="container">
+        <h2>{% trans 'Create New Ad' %}></h2>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">{% trans 'Submit' %}</button>
+        </form>
+    </div>
+{% endblock content %}

@@ -8210,7 +8210,7 @@ h1, h2, h3, h4, h5,
   margin: 40px 0; }
 
 .wrapper {
-  width: 100%; }
+  width: 100%;}
 
 #sidebar {
   min-width: 270px;
@@ -8288,6 +8288,7 @@ h1, h2, h3, h4, h5,
       margin-left: -80px !important; }
       #sidebar.active {
         margin-left: 0 !important; } }
+
 
 a[data-toggle="collapse"] {
   position: relative; }
@@ -8406,4 +8407,36 @@ a[data-toggle="collapse"] {
 .nickname:hover {
     color: #2c3034;
     text-decoration: underline; /* Подчеркивание при наведении (не работает) */
+}
+
+.category {
+    font-size: 0.9em;
+    color: #777;
+    margin-bottom: 10px;
+}
+
+.ad-text {
+    font-size: 1.2em; /* Увеличиваем размер шрифта */
+    line-height: 1.6; /* Улучшаем межстрочный интервал для лучшей читаемости */
+    color: #3c3c3c; /* Увеличиваем контрастность текста */
+    margin-bottom: 20px; /* Добавляем пространство под текстом */
+}
+
+img {
+    max-width: 100%;
+    max-height: 800px;
+}
+
+/* Dark mode switch styles */
+.dark-mode .footer {
+    background-color: #343a40;
+    color: #ffffff;
+}
+
+.dark-mode .footer a {
+    color: #ffffff;
+}
+
+.dark-mode .footer a:hover {
+    color: #cccccc;
 }

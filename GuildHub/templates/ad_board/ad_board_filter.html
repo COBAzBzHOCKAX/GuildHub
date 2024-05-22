@@ -1,0 +1,46 @@
+{% load i18n %}
+
+<div id="filter-form-container" style="display: none;">
+    <form action="" method="get">
+        {{ filterset.form.as_p }}
+        <input type="submit" value="{% trans 'Search' %}">
+    </form>
+</div>
+
+<a id="toggle-filter-form" type="button" onclick="toggleFilterForm()">
+    {% trans 'Toggle Filter' %}
+</a>
+
+{% if filterset.data and filterset.is_bound and filterset.form.is_valid %}
+    {% with applied_filters=False %}
+        <div id="applied-filters">
+            {% trans 'Applied Filters:' %}
+            <ul>
+                {% for key, value in filterset.data.items %}
+                    {% if value and key != 'page' %}
+                        {% with applied_filters=True %}
+                            {% if key == 'title__icontains' %}
+                                <li>{% trans 'Title contains' %}: {{ value }}</li>
+                            {% elif key == 'categories' %}
+                                <li>{% trans 'Categories' %}: {{ value }}</li>
+                            {% elif key == 'start_date' %}
+                                <li>{% trans 'Start Date' %}: {{ value }}</li>
+                            {% elif key == 'end_date' %}
+                                <li>{% trans 'End Date' %}: {{ value }}</li>
+                            {% elif key == 'min_age' %}
+                                <li>{% trans 'Minimum Age' %}: {{ value }}</li>
+                            {% elif key == 'max_age' %}
+                                <li>{% trans 'Maximum Age' %}: {{ value }}</li>
+                            {% endif %}
+                        {% endwith %}
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            {% if applied_filters %}
+                <a id="clear-filter" href="{% url 'ad_board' %}">
+                    {% trans 'Clear Filter' %}
+                </a>
+            {% endif %}
+        </div>
+    {% endwith %}
+{% endif %}

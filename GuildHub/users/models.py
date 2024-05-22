@@ -1,6 +1,8 @@
 import datetime
+import re
 
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.core.mail import send_mail
 from django.db import models
 from django.utils import timezone
@@ -8,40 +10,30 @@ from django.utils.translation import gettext_lazy as _
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, password, **kwargs):
-        """
-        Create a user with the given email and optional password.
-
-        Parameters:
-            email (str): The email of the user.
-            password (str): The password for the user.
-            **kwargs: Additional keyword arguments to create the user.
-
-        Returns:
-            User: The created user object.
-        """
+    def create_user(self, email, password=None, **extra_fields):
+        """Create and return a user with the given email and password."""
         if not email:
-            raise ValueError(_('Users must have an Email'))
-
+            raise ValueError(_('The Email field must be set'))
         if not password:
-            raise ValueError(_('Users must have a Password'))
+            raise ValueError(_('The Password field must be set'))
 
-        user = self.model(email=email, **kwargs)
-
+        email = self.normalize_email(email)
+        user = self.model(email=email, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, password):
-        """Create and save a superuser with the given email and password."""
-        user = self.create_user(email, password=password)
-        user.is_superuser = True
-        user.is_staff = True
-        user.save(using=self._db)
-        return user
+    def create_superuser(self, email, password=None, **extra_fields):
+        """Create and return a superuser with the given email and password."""
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+
+        return self.create_user(email, password, **extra_fields)
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+    username_validator = UnicodeUsernameValidator()
+
     email = models.EmailField(
         max_length=255,
         unique=True,
@@ -103,8 +95,23 @@ class User(AbstractBaseUser, PermissionsMixin):
         max_length=255,
         blank=True,
         null=True,
-        verbose_name=_('Discord profile URL'),
+        verbose_name=_('Your Discord account'),
         help_text=_('Enter your Discord profile URL'),
+    )
+    steam_url_profile = models.URLField(
+        max_length=255,
+        blank=True,
+        null=True,
+        verbose_name=_('Your Steam account'),
+        help_text=_('Enter your Steam profile URL'),
+    )
+    telegram_nickname = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True,
+        verbose_name=_('Your telegram nickname'),
+        help_text=_('Specify the nickname "telegram". Only letters from A to Z, numbers 0-9, _. Example: QweRty_123'),
+        validators=[username_validator],
     )
     about_me = models.TextField(
         blank=True,
@@ -173,38 +180,32 @@ class User(AbstractBaseUser, PermissionsMixin):
     age.short_description = _('Age')
 
     def ban(self, until):
-        """
-        Bans the user by setting the `is_banned` attribute to `True` and setting the `banned_until` attribute to the given `until` date.
-        Saves the changes to the database.
-
-        Parameters:
-            until (datetime): The date until which the user will be banned.
-
-        Returns:
-            None
-        """
+        """Ban the user until the specified date."""
         self.is_banned = True
         self.banned_until = until
-        self.save()
+        self.save(update_fields=['is_banned', 'banned_until'])
 
     def unban(self):
-        """
-        Unbans the user by setting the `is_banned` attribute to `False` and setting the `banned_until` attribute to `None`.
-        Saves the changes to the database.
-
-        Parameters:
-            self (User): The user object.
-
-        Returns:
-            None
-        """
+        """Unban the user by setting the `is_banned` attribute to `False` and `banned_until` to `None`."""
         self.is_banned = False
         self.banned_until = None
-        self.save()
+        self.save(update_fields=['is_banned', 'banned_until'])
+
+    def telegram_clean(self):
+        if self.telegram_nickname:
+            self.telegram_nickname = re.sub(r'[^a-zA-Z0-9_]', '', self.telegram_nickname)
+            self.telegram_nickname = re.sub(r'^_+', '', self.telegram_nickname)
+
+    def telegram_link(self):
+        if self.telegram_nickname:
+            self.telegram_clean()
+            return f'https://t.me/{self.telegram_nickname}'
+        return None
 
     def clean(self):
         super().clean()
         self.email = self.__class__.objects.normalize_email(self.email)
+        self.telegram_clean()
 
         if self.banned_until and self.banned_until < timezone.now():
             self.unban()
