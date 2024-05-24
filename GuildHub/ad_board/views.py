@@ -1,5 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render  # noqa F401
+from django.core.exceptions import PermissionDenied
 from django.views.generic import ListView, DetailView, CreateView
 
 from .filters import AdFilter
@@ -41,3 +41,14 @@ class AdDetailView(DetailView):
     model = Ad
     template_name = 'ad_board/ad_detail.html'
     context_object_name = 'ad'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['request'] = self.request
+        return context
+
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset=queryset)
+        if not obj.can_view(self.request.user):
+            raise PermissionDenied
+        return obj

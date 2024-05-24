@@ -68,21 +68,28 @@
 
                 <!-- НАСТРОИТЬ ОТОБРАЖЕНИЕ В ЗАВИССИМОСТИ ОТ ЗАЛОГИНЕННОСТИ -->
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="nav navbar-nav ml-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="#">{% trans 'Chats' %}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">{% trans 'My response' %}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">{% trans 'My ads' %}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href={% url 'account_login' %}>{% trans 'Account' %}</a>
-                            <!-- Пока не залогинен, иначе должен быть никнейм или почта -->
-                        </li>
-                    </ul>
+                    {% if user.is_authenticated %}
+                        <ul class="nav navbar-nav ml-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#">{% trans 'Chats' %}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">{% trans 'My response' %}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">{% trans 'My ads' %}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href={% url 'account_login' %}>{{ current_user }}</a>
+                            </li>
+                        </ul>
+                    {% else %}
+                        <ul class="nav navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href={% url 'account_login' %}>{% trans 'Login' %}</a>
+                            </li>
+                        </ul>
+                    {% endif %}
                 </div>
             </div>
         </nav>

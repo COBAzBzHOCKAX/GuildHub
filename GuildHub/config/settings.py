@@ -108,6 +108,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.request',  # Needed by allauth
+                'config.context_processors.current_user'
             ],
         },
     },
@@ -161,6 +162,20 @@ ACCOUNT_EMAIL_NOTIFICATIONS = True
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_LOGIN_BY_CODE_TIMEOUT = 300
+LOGIN_REDIRECT_URL = ''
+
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_PORT = 2525
+EMAIL_HOST_USER = os.getenv('HOST_EMAIL_MAIL_RU')
+EMAIL_HOST_PASSWORD = os.getenv('HOST_EMAIL_MAIL_RU_PASSWORD')
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+ADMINS = os.getenv('ADMINS')
+DEFAULT_FROM_EMAIL = os.getenv('HOST_EMAIL_MAIL_RU')
+SERVER_EMAIL = 'HOST_EMAIL_MAIL_RU'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Internationalization settings
 # https://docs.djangoproject.com/en/5.0/topics/i18n/

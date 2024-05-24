@@ -1,5 +1,17 @@
 {% load i18n %}
 
-<div class="ad-footer">
-    <a href="{% url 'profile' user.id %}" class="response-button">{% trans 'Response' %}</a>
-</div>
+{% if request.user.is_authenticated %}
+    {% if request.user != ad.user and is_published %}
+        <div class="ad-footer">
+            <a href="{% url 'profile' user.id %}" class="response-button">{% trans 'Response' %}</a>
+        </div>
+    {% elif not is_published %}
+        <div class="ad-footer">
+            <p>{% trans 'Ad is not published' %}</p>
+        </div>
+    {% endif %}
+{% else %}
+    <div class="ad-footer">
+        <a href="{% url 'account_login' %}" class="response-button">{% trans 'Login to respond' %}</a>
+    </div>
+{% endif %}

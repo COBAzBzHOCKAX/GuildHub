@@ -24,6 +24,9 @@ class Ad(models.Model):
             models.Index(fields=['category']),
             models.Index(fields=['user']),
         ]
+        permissions = [
+            ('view_unpublished_ad', 'Can view unpublished ads'),
+        ]
 
     def __str__(self):
         return self.title
@@ -65,6 +68,20 @@ class Ad(models.Model):
     def save(self, *args, **kwargs):
         self.date_of_publication()
         super().save(*args, **kwargs)
+
+    def can_view(self, user):
+        """Check if user can view the ad."""
+        if self.is_published:
+            return True
+        if user.is_authenticated and user == self.user:
+            return True
+        if user.is_staff:
+            return True
+        if user.is_superuser:
+            return True
+        if user.has_perm('ad_board.view_unpublished_ad'):
+            return True
+        return False
 
 
 class Category(models.Model):
