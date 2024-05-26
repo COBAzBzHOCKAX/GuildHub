@@ -8427,6 +8427,19 @@ img {
     max-height: 800px;
 }
 
+.unpublished {
+    color: red;
+}
+
+.ad-actions {
+    margin-top: 15px;
+}
+
+.ad-actions .btn {
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
 /* Dark mode switch styles */
 .dark-mode .footer {
     background-color: #343a40;

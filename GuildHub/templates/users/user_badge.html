@@ -22,7 +22,7 @@
             {% if ad.is_published %}
                 {{ ad.date_published|date:"d M Y, H:i" }}
             {% else %}
-                {% trans 'unpublished' %}
+                <span class="unpublished">{% trans 'unpublished' %}</span>
             {% endif %}
         </span>
     </div>

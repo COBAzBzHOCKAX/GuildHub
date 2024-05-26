@@ -1,0 +1,20 @@
+{% load i18n %}
+
+<div class="ad-actions">
+    {% if ad.is_published %}
+        <form method="post" action="{% url 'ad_unpublish' ad.id %}" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-warning">{% trans 'Unpublish' %}</button>
+        </form>
+    {% else %}
+        <form method="post" action="{% url 'ad_publish' ad.id %}" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success">{% trans 'Publish' %}</button>
+        </form>
+    {% endif %}
+    <a href="{% url 'ad_update' ad.id %}" class="btn btn-primary">{% trans 'Edit' %}</a>
+    <form method="post" action="{% url 'ad_delete' ad.id %}" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger" onclick="return confirm('{% trans 'Are you sure you want to delete this ad?' %}');">{% trans 'Delete' %}</button>
+    </form>
+</div>

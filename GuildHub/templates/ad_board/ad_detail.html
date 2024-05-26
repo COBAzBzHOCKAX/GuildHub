@@ -8,7 +8,11 @@
 {% block content %}
     <div class="container">
         {% include 'users/user_badge.html' with user=ad.user ad=ad %}
-        <h1>{{ ad.title }}</h1>
+
+        {% if request.user == ad.user or request.user.is_staff %}
+            {% include 'ad_board/ad_actions.html' with ad=ad %}
+        {% endif %}
+        
         <p class="category">{% trans 'Category' %}: {{ ad.category.category_name }}
         <p class="ad-text">{{ ad.text.html | safe }}</p>
         {% include 'ad_board/response_button.html' with user=ad.user %}
