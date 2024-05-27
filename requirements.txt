@@ -2,6 +2,9 @@
 Django
 Pillow
 
+django-filter
+django-quill-editor
+
 # Localization
 django-modeltranslation
 

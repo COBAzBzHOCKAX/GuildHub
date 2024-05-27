@@ -1,0 +1,29 @@
+{% load static %}
+{% load i18n %}
+
+<div class="ad-header">
+    <div class="avatar" onclick="event.stopPropagation(); location.href='{% url 'profile' user.id %}'"
+         style="cursor: pointer;">
+        {% if user.avatar %}
+            <img src="{{ user.avatar.url }}" alt="The avatar of the player {{ user.nickname }} - Guild Hub" class="avatar-img">
+        {% else %}
+            <img src="{% static 'images/avatars/default.png' %}" alt="Default Avatar" class="avatar-img">
+        {% endif %}
+    </div>
+    <div class="user-info">
+        <a href="{% url 'profile' user.id %}" class="nickname">{{ user.nickname }}</a>
+        <br>
+        <span>
+            {% if user.first_name %}{{ user.first_name }}, {% endif %}
+            {% if user.age %}{% trans 'age' %}: {{ user.age }}, {% endif %}
+            {% if user.gender %}{% trans 'gender' %}: {{ user.get_gender_display }}, {% endif %}
+            {% if user.first_name or user.age or user.gender %}<br>{% endif %}
+            {% trans 'published on' %}: 
+            {% if ad.is_published %}
+                {{ ad.date_published|date:"d M Y, H:i" }}
+            {% else %}
+                <span class="unpublished">{% trans 'unpublished' %}</span>
+            {% endif %}
+        </span>
+    </div>
+</div>

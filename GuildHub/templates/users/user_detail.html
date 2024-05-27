@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+    {{ user.username }}'s Profile
+{% endblock title %}
+
+{% block content %}
+    <div class="container">
+        <div class="profile-header">
+            {% if user.avatar %}
+                <div class="profile-photo">
+                    <img src="{{ user.profile.photo.url }}" alt="{% trans 'Profile photo' %}" />
+                </div>
+            {% else %}
+                <div class="profile-photo">
+                    <img src="{% static 'images/avatars/default.png' %}" alt="Default Avatar" />
+                </div>
+            {% endif %}
+            <div class="profile-info">
+                <h2>{{ user.nickname }}</h2>
+                <p><strong>{% trans 'Last visit' %}:</strong> {{ user.last_login }}</p>
+                <p><strong>{% trans 'First name' %}:</strong> {{ user.first_name }}</p>
+                <p><strong>{% trans 'Last name' %}:</strong> {{ user.last_name }}</p>
+                <p><strong>{% trans 'Gender' %}:</strong> {{ user.gender }}</p>
+                <p><strong>{% trans 'Date of Birth' %}:</strong> {{ user.date_birth }}</p>
+                <p><strong>{% trans 'Phone number' %}:</strong> {{ user.phone_number }}</p>
+            </div>
+        </div>
+
+        <div class="profile-contacts">
+            {% if user.discord_url_profile %}
+                <p><strong>Discord:</strong> {{ user.discord_url_profile }}</p>
+            {% endif %}
+            {% if user.steam_url_profile %}
+                <p><strong>Steam:</strong> {{ user.steam_url_profile }}</p>
+            {% endif %}
+            {% if user.telegram_nickname %}
+                <p><strong>Telegram:</strong> {{ user.telegram_link }}</p>
+            {% endif %}
+        </div>
+
+        <div class="profile-about">
+            {% if user.profile.about_me %}
+                <h3>{% trans 'About me' %}</h3>
+                <p>{{ user.profile.about_me }}</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <style>
+        .profile-header {
+            display: flex;
+            align-items: center;
+        }
+        .profile-photo img {
+            border-radius: 5%;
+            width: 250px;
+            height: 250px;
+            background-color: #ffffff;
+        }
+        .profile-info {
+            margin-left: 20px;
+        }
+        .profile-info p, .profile-info h2 {
+            margin: 0;
+            padding: 5px 0;
+        }
+        .profile-contacts p, .profile-about p {
+            margin: 0;
+            padding: 5px 0;
+        }
+        .profile-about {
+            margin-top: 20px;
+        }
+        .badge {
+            background-color: #007bff;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 5px;
+        }
+    </style>
+{% endblock content %}

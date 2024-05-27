@@ -1,12 +1,15 @@
+from django.urls import reverse
+
 from config import settings
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+from django_quill.fields import QuillField
 
 
 class Ad(models.Model):
     title = models.CharField(max_length=255, verbose_name=_('Title'), help_text=_('Enter your title here'))
-    text = models.TextField(verbose_name=_('Text'), help_text=_('Enter your text here'))
+    text = QuillField(verbose_name=_('Text'), help_text=_('Enter your text here'))
     category = models.ForeignKey('Category', on_delete=models.CASCADE, verbose_name=_('Category'))
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name=_('User'))
     is_published = models.BooleanField(default=False, verbose_name=_('Is published'))
@@ -21,9 +24,15 @@ class Ad(models.Model):
             models.Index(fields=['category']),
             models.Index(fields=['user']),
         ]
+        permissions = [
+            ('view_unpublished_ad', 'Can view unpublished ads'),
+        ]
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('ad_detail', args=[str(self.id)])
 
     def publish_ad(self):
         """Publish the advertisement."""
@@ -48,6 +57,31 @@ class Ad(models.Model):
         if len(self.text) > 50:
             return self.text[:50] + '...'
         return self.text
+
+    def date_of_publication(self):
+        """Set publication date if published, else set to None."""
+        if self.is_published and not self.date_published:
+            self.date_published = timezone.now()
+        if not self.is_published:
+            self.date_published = None
+
+    def save(self, *args, **kwargs):
+        self.date_of_publication()
+        super().save(*args, **kwargs)
+
+    def can_view(self, user):
+        """Check if user can view the ad."""
+        if self.is_published:
+            return True
+        if user.is_authenticated and user == self.user:
+            return True
+        if user.is_staff:
+            return True
+        if user.is_superuser:
+            return True
+        if user.has_perm('ad_board.view_unpublished_ad'):
+            return True
+        return False
 
 
 class Category(models.Model):
