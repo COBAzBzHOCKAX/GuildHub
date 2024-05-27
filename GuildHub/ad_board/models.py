@@ -62,7 +62,7 @@ class Ad(models.Model):
         """Set publication date if published, else set to None."""
         if self.is_published and not self.date_published:
             self.date_published = timezone.now()
-        else:
+        if not self.is_published:
             self.date_published = None
 
     def save(self, *args, **kwargs):
