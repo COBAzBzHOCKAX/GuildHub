@@ -30,7 +30,7 @@
                         <p class="category">{% trans 'Category' %}: {{ ad.category.category_name }}</p>
                         <p>{{ ad.text.html | truncatewords_html:50 | truncatechars_html:300 | safe }}</p>
                     </div>
-                    {% include 'ad_board/response_button.html' with user=ad.user %}
+                    {% include 'ad_board/response_button.html' with ad=ad %}
                 </div>
             {% endfor %}
 
