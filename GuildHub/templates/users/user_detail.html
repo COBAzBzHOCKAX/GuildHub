@@ -20,11 +20,22 @@
             {% endif %}
             <div class="profile-info">
                 <h2>{{ user.nickname }}</h2>
+                {% if user.is_banned %}
+                    <span class="badge badge-danger">{% trans 'banned' %}</span>
+                {% endif %}
+                {% if user.is_superuser %}
+                    <span class="badge badge-superadmin">{% trans 'super admin' %}</span>
+                {% elif user.is_staff %}
+                    <span class="badge badge-admin">{% trans 'admin' %}</span>
+                {% elif is_moderator %}
+                    <span class="badge badge-moderator">{% trans 'moderator' %}</span>
+                {% endif %}
+                
                 <p><strong>{% trans 'Last visit' %}:</strong> {{ user.last_login }}</p>
                 <p><strong>{% trans 'First name' %}:</strong> {{ user.first_name }}</p>
                 <p><strong>{% trans 'Last name' %}:</strong> {{ user.last_name }}</p>
                 <p><strong>{% trans 'Gender' %}:</strong> {{ user.gender }}</p>
-                <p><strong>{% trans 'Date of Birth' %}:</strong> {{ user.date_birth }}</p>
+                <p><strong>{% trans 'Date of Birth' %}:</strong> {{ user.date_birth }} ({% trans 'age' %}: {{ user.age }})</p>
                 <p><strong>{% trans 'Phone number' %}:</strong> {{ user.phone_number }}</p>
             </div>
         </div>
@@ -34,17 +45,17 @@
                 <p><strong>Discord:</strong> {{ user.discord_url_profile }}</p>
             {% endif %}
             {% if user.steam_url_profile %}
-                <p><strong>Steam:</strong> {{ user.steam_url_profile }}</p>
+                <p><strong>Steam:</strong> <a href="{{ user.steam_url_profile }}">Профиль</a></p>
             {% endif %}
             {% if user.telegram_nickname %}
-                <p><strong>Telegram:</strong> {{ user.telegram_link }}</p>
+                <p><strong>Telegram:</strong> <a href="{{ user.telegram_link }}">@{{ user.telegram_nickname }}</a></p>
             {% endif %}
         </div>
 
         <div class="profile-about">
-            {% if user.profile.about_me %}
+            {% if user.about_me %}
                 <h3>{% trans 'About me' %}</h3>
-                <p>{{ user.profile.about_me }}</p>
+                <p>{{ user.about_me }}</p>
             {% endif %}
         </div>
     </div>
@@ -80,5 +91,18 @@
             padding: 3px 10px;
             border-radius: 5px;
         }
+        .badge-moderator {
+        background-color: #007bff;
+        }
+        .badge-danger {
+        background-color: #dc3545;
+        }
+        .badge-superadmin {
+        background-color: #ff5733;
+        }
+        .badge-admin {
+        background-color: #28a745;
+        }
+        
     </style>
 {% endblock content %}

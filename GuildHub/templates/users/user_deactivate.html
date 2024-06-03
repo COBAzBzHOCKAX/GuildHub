@@ -1,0 +1,14 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirm Delete profile</title>
+</head>
+<body>
+    <h1>Confirm Delete profile</h1>
+    <form method="post" action="">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Deactivate and Delete profile</button>
+    </form>
+</body>
+</html>

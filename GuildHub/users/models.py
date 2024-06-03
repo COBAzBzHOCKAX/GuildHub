@@ -91,12 +91,12 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name=_('Phone number'),
         help_text=_('Enter your phone number'),
     )
-    discord_url_profile = models.URLField(
+    discord_url_profile = models.CharField(
         max_length=255,
         blank=True,
         null=True,
         verbose_name=_('Your Discord account'),
-        help_text=_('Enter your Discord profile URL'),
+        help_text=_('Enter your Discord nickname'),
     )
     steam_url_profile = models.URLField(
         max_length=255,
@@ -139,6 +139,12 @@ class User(AbstractBaseUser, PermissionsMixin):
         help_text=_("Designates whether this user should be treated as banned."),
     )
     banned_until = models.DateTimeField(blank=True, null=True)
+    reason_ban = models.TextField(
+        blank=True,
+        null=True,
+        verbose_name=_('Reason for ban'),
+        help_text=_('Enter the reason for the ban'),
+    )
     date_joined = models.DateTimeField(_("date joined"), default=timezone.now)
 
     objects = UserManager()

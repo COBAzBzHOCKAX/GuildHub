@@ -11,6 +11,7 @@ from .filters import AdFilter
 from .forms import AdForm
 from .models import Ad
 
+
 PAGINATE_BY = 2
 
 
@@ -78,12 +79,6 @@ class AdUpdateView(LoginRequiredMixin, UpdateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
-
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, redirect
-from django.contrib import messages
-from django.utils.translation import gettext as _
-from .models import Ad
 
 @login_required
 def ad_delete(request, pk):
