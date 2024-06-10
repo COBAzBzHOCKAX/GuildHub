@@ -38,6 +38,9 @@ class UserDeactivateView(LoginRequiredMixin, UserOwnerOrAdminMixin, FormMixin, V
     form_class = UserDeactivateForm
     template_name = 'users/user_deactivate.html'
 
+    def get_object(self):
+        return get_object_or_404(User, pk=self.kwargs['pk'])
+
     def post(self, request, *args, **kwargs):
         user = self.get_object()
         form = self.get_form()
@@ -49,8 +52,19 @@ class UserDeactivateView(LoginRequiredMixin, UserOwnerOrAdminMixin, FormMixin, V
         else:
             return JsonResponse({'status': 'error', 'errors': form.errors}, status=400)
 
-        def get_object(self):
-            return get_object_or_404(User, pk=self.kwargs['pk'])
+    def get(self, request, *args, **kwargs):
+        user = self.get_object()
+        form = self.form_class()
+        return render(request, self.template_name, {'form': form, 'user': user})
 
-        def get_success_url(self):
-            return reverse_lazy('profile', kwargs={'pk': self.kwargs['pk']})
+    def get_success_url(self):
+        return reverse_lazy('user-detail', kwargs={'pk': self.kwargs['pk']})
+
+
+# TODO: add activate view
+# class UserActivateView(LoginRequiredMixin, UserOwnerOrAdminMixin, View):
+#     def get(self, request, *args, **kwargs):
+#         user = get_object_or_404(User, pk=self.kwargs['pk'])
+#         user.is_active = True
+#         user.save()
+#         return render(request, 'users/user_activated.html', {'user': user})

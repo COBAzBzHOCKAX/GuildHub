@@ -1,14 +1,20 @@
-<html lang="en">
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}
 <head>
     <meta charset="UTF-8">
-    <title>Confirm Delete profile</title>
+    <title>Confirm Deactivation</title>
 </head>
-<body>
-    <h1>Confirm Delete profile</h1>
+{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <h1>{% trans 'Confirm Deactivation for' %} {{ user.nickname }}</h1>
     <form method="post" action="">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Deactivate and Delete profile</button>
+        <button type="submit" class="btn btn-danger">{% trans "Deactivate User" %}</button>
     </form>
-</body>
-</html>
+</div>
+{% endblock content %}

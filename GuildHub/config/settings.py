@@ -108,7 +108,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.request',  # Needed by allauth
-                'config.context_processors.current_user'
+                'config.context_processors.current_user',
             ],
         },
     },
@@ -162,8 +162,10 @@ ACCOUNT_EMAIL_NOTIFICATIONS = True
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_LOGIN_BY_CODE_TIMEOUT = 300
-LOGIN_REDIRECT_URL = ''
+LOGIN_REDIRECT_URL = 'ad_board'
+LOGOUT_REDIRECT_URL = 'ad_board'
 
+# Email settings
 EMAIL_HOST = 'smtp.mail.ru'
 EMAIL_PORT = 2525
 EMAIL_HOST_USER = os.getenv('HOST_EMAIL_MAIL_RU')

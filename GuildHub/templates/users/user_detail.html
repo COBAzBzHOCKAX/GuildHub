@@ -31,6 +31,7 @@
                     <span class="badge badge-moderator">{% trans 'moderator' %}</span>
                 {% endif %}
                 
+            
                 <p><strong>{% trans 'Last visit' %}:</strong> {{ user.last_login }}</p>
                 <p><strong>{% trans 'First name' %}:</strong> {{ user.first_name }}</p>
                 <p><strong>{% trans 'Last name' %}:</strong> {{ user.last_name }}</p>
@@ -58,6 +59,14 @@
                 <p>{{ user.about_me }}</p>
             {% endif %}
         </div>
+    
+        {% if request.user.is_authenticated and user == request.user %}
+            <div class="profile-actions">
+                <a href="{% url 'account_logout' %}" class="btn btn-secondary">{% trans 'Logout' %}</a>
+                <a href="{% url 'profile_update' user.id %}" class="btn btn-primary">{% trans 'Edit Profile' %}</a>
+                <a href="{% url 'profile_deactivate_url' user.id %}" class="btn btn-danger">{% trans 'Delete Account' %}</a>
+            </div>
+        {% endif %}
     </div>
 
     <style>
@@ -85,23 +94,11 @@
         .profile-about {
             margin-top: 20px;
         }
-        .badge {
-            background-color: #007bff;
-            color: white;
-            padding: 3px 10px;
-            border-radius: 5px;
+        .profile-actions {
+            margin-top: 20px;
         }
-        .badge-moderator {
-        background-color: #007bff;
-        }
-        .badge-danger {
-        background-color: #dc3545;
-        }
-        .badge-superadmin {
-        background-color: #ff5733;
-        }
-        .badge-admin {
-        background-color: #28a745;
+        .profile-actions .btn {
+            margin-right: 10px;
         }
         
     </style>
