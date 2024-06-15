@@ -4,6 +4,7 @@ Pillow
 
 django-filter
 django-quill-editor
+djangorestframework
 
 # Localization
 django-modeltranslation

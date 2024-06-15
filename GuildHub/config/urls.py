@@ -11,4 +11,5 @@ urlpatterns = [
     path('ad_board/', include('ad_board.urls')),
     path('', include('newsletter.urls')),
     path('profile/', include('users.urls')),
+    path('', include('chats.urls')),
 ]

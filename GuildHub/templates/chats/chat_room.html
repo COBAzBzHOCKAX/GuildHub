@@ -1,0 +1,52 @@
+<!-- chat_room.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat Room</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Chat Room</h1>
+    <div id="chat-log"></div>
+    <input id="chat-message-input" type="text" size="100">
+    <button id="chat-message-submit">Send</button>
+
+    <script>
+        const chatId = 1;  // Replace with dynamic chat ID
+
+        function getMessages() {
+            $.ajax({
+                url: `/api/chats/${chatId}/messages/`,
+                method: 'GET',
+                success: function(data) {
+                    $('#chat-log').empty();
+                    data.forEach(function(message) {
+                        $('#chat-log').append('<div>' + message.sender_username + ': ' + message.content + '</div>');
+                    });
+                }
+            });
+        }
+
+        $('#chat-message-submit').click(function() {
+            const message = $('#chat-message-input').val();
+            $.ajax({
+                url: `/api/chats/${chatId}/messages/`,
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                data: {
+                    content: message
+                },
+                success: function() {
+                    $('#chat-message-input').val('');
+                    getMessages();
+                }
+            });
+        });
+
+        setInterval(getMessages, 2000);  // Fetch new messages every 2 seconds
+        getMessages();  // Initial fetch
+    </script>
+</body>
+</html>

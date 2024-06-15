@@ -74,7 +74,8 @@ INSTALLED_APPS = [
     'ad_board',
     'newsletter',
     'response_board',
-    'users'
+    'users',
+    'chats',
 ]
 
 SITE_ID = 1

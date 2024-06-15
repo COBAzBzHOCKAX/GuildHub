@@ -1,0 +1,42 @@
+<html>
+<head>
+    <title>Select User for Chat</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Select User for Chat</h1>
+    <div id="user-list"></div>
+    <button onclick="fetchUsers()">Load Users</button>
+
+    <script>
+        function fetchUsers() {
+            $.ajax({
+                url: '/api/users/',  // Assumes you have an endpoint to fetch user list
+                method: 'GET',
+                success: function(data) {
+                    $('#user-list').empty();
+                    data.forEach(function(user) {
+                        $('#user-list').append('<div>' + user.username + ' <button onclick="startChat(\'' + user.username + '\')">Chat</button></div>');
+                    });
+                }
+            });
+        }
+
+        function startChat(username) {
+            $.ajax({
+                url: '/api/chats/create-or-get/',
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                data: {
+                    username: username
+                },
+                success: function(data) {
+                    window.location.href = '/chat/' + data.id + '/';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
