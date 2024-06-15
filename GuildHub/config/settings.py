@@ -61,7 +61,6 @@ INSTALLED_APPS = [
     # Social account providers
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.yandex',
-    'allauth.socialaccount.providers.steam',
     'allauth.socialaccount.providers.telegram',
     'allauth.socialaccount.providers.discord',
     'allauth.socialaccount.providers.vk',
