@@ -62,6 +62,8 @@
     
         {% if request.user.is_authenticated and user == request.user %}
             <div class="profile-actions">
+                <span>{% trans 'You can add information about yourself. Button' %}: {% trans 'Edit Profile' %}.</span><br>
+                <span>{% trans 'Due to this, your account will be displayed in the search filter.' %}</span><br>
                 <a href="{% url 'account_logout' %}" class="btn btn-secondary">{% trans 'Logout' %}</a>
                 <a href="{% url 'profile_update' user.id %}" class="btn btn-primary">{% trans 'Edit Profile' %}</a>
                 <a href="{% url 'profile_deactivate_url' user.id %}" class="btn btn-danger">{% trans 'Delete Account' %}</a>

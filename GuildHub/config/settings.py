@@ -65,10 +65,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.discord',
     'allauth.socialaccount.providers.vk',
     'allauth.socialaccount.providers.facebook',
-    'allauth.socialaccount.providers.apple',
-    'allauth.socialaccount.providers.twitter_oauth2',
-    'allauth.socialaccount.providers.linkedin_oauth2',
-    'allauth.socialaccount.providers.github',
 
     # Custom apps
     'ad_board',
@@ -76,6 +72,7 @@ INSTALLED_APPS = [
     'response_board',
     'users',
     'chats',
+    'common',  # Files used by multiple applications, such as custom_tags
 ]
 
 SITE_ID = 1
@@ -92,6 +89,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'allauth.account.middleware.AccountMiddleware',  # Allauth
+    'users.middleware.RequireNicknameMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -157,6 +155,8 @@ ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_ADAPTER = 'users.adapters.AccountAdapter'
+ACCOUNT_SIGNUP_REDIRECT_URL = 'profile_update'
 ACCOUNT_CHANGE_EMAIL = True
 ACCOUNT_EMAIL_NOTIFICATIONS = True
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1

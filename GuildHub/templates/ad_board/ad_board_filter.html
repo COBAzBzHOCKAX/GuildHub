@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load custom_tags %}
 
 <div id="filter-form-container" style="display: none;">
     <form action="" method="get">
@@ -36,7 +37,7 @@
                     {% endif %}
                 {% endfor %}
             </ul>
-            {% if applied_filters %}
+            {% if not applied_filters %}
                 <a id="clear-filter" href="{% url 'ad_board' %}">
                     {% trans 'Clear Filter' %}
                 </a>

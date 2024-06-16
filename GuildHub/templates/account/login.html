@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load i18n %}
+{% load socialaccount %}
 
 {% block title %}
     {% trans 'Login' %}
@@ -8,6 +9,11 @@
 {% block content %}
     <div class="container">
         <h2>{% trans 'Login' %}</h2>
+        {% if form.errors %}
+            <div class="alert alert-danger" role="alert">
+                {% trans "Invalid login or password. Please try again." %}
+            </div>
+        {% endif %}
         <form method="post" action="{% url 'account_login' %}">
             {% csrf_token %}
             <div class="form-group">
@@ -30,5 +36,12 @@
         <p>
             <a href="{% url 'account_signup' %}">{% trans 'Don\'t have an account? Sign up' %}</a>
         </p>
+        <hr>
+        <div class="social-login">
+            <h3>{% trans 'Or login with' %}</h3>
+            <a href="{% provider_login_url 'yandex' %}" class="btn btn-default btn-social btn-yandex">
+                <span class="fa fa-yandex"></span> {% trans 'Login via Yandex' %}
+            </a>
+        </div>
     </div>
 {% endblock content %}

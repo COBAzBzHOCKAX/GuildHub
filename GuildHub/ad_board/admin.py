@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 
+from .filters import AdFilter
 from .models import Ad, Category
 
 

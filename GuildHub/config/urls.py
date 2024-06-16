@@ -12,4 +12,5 @@ urlpatterns = [
     path('', include('newsletter.urls')),
     path('profile/', include('users.urls')),
     path('', include('chats.urls')),
+    path('response_board/', include('response_board.urls')),
 ]

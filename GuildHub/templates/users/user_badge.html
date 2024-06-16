@@ -2,6 +2,7 @@
 {% load i18n %}
 
 <div class="ad-header">
+    {% if user.pk %}
     <div class="avatar" onclick="event.stopPropagation(); location.href='{% url 'profile' user.id %}'"
          style="cursor: pointer;">
         {% if user.avatar %}
@@ -26,4 +27,7 @@
             {% endif %}
         </span>
     </div>
+    {% else %}
+    <span>{% trans 'The profile has been deleted' %}</span>
+{% endif %}
 </div>

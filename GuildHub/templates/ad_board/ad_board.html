@@ -8,6 +8,17 @@
 {% block content %}
     <div class="container">
         <h2>{% trans "Ad board" %}</h2>
+    
+        {% if user.is_authenticated and not user.is_banned %}
+            <a href="{% url 'ad_create' %}" class="btn btn-primary">{% trans 'Add Ad' %}</a>
+        {% elif user.is_banned %}
+            <p>{% trans 'A banned user cannot create ads' %}</p>
+        {% else %}
+            <p>{% trans 'To create an ad, you must log in' %}</p>
+        {% endif %}
+
+        <br>
+        <br>
         
         {# filter #}
         {% include 'ad_board/ad_board_filter.html' %}
@@ -28,9 +39,9 @@
                     <div class="ad-body">
                         <h5>{{ ad.title }}</h5>
                         <p class="category">{% trans 'Category' %}: {{ ad.category.category_name }}</p>
-                        <p>{{ ad.text.html | truncatewords_html:50 | truncatechars_html:300 | safe }}</p>
+                        <p>{{ ad.text.html | truncatewords_html:200 | truncatechars_html:1170 | safe }}</p>
                     </div>
-                    {% include 'ad_board/response_button.html' with ad=ad %}
+                    {% include 'ad_board/response_button.html' with ad=ad responded=ad.responded %}
                 </div>
             {% endfor %}
 

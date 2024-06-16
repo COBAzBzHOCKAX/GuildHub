@@ -15,6 +15,6 @@
         
         <p class="category">{% trans 'Category' %}: {{ ad.category.category_name }}
         <p class="ad-text">{{ ad.text.html | safe }}</p>
-        {% include 'ad_board/response_button.html' with user=ad.user %}
+        {% include 'ad_board/response_button.html' with ad=ad %}
     </div>
 {% endblock content %}

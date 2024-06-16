@@ -3,16 +3,17 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect
 from django.views.decorators.http import require_POST
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.utils.translation import gettext as _
 from django.contrib import messages
 
+from response_board.models import Response
 from .filters import AdFilter
 from .forms import AdForm
 from .models import Ad
 
 
-PAGINATE_BY = 2
+PAGINATE_BY = 10
 
 
 class AdBoardView(ListView):
@@ -23,13 +24,18 @@ class AdBoardView(ListView):
     paginate_by = PAGINATE_BY
 
     def get_queryset(self):
-        queryset = super().get_queryset()
+        queryset = super().get_queryset().filter(is_published=True)
         self.filterset = AdFilter(self.request.GET, queryset)
         return self.filterset.qs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['filterset'] = self.filterset
+
+        ad_list = context['ad_list']
+        for ad in ad_list:
+            ad.responded = Response.objects.filter(ad=ad, author=self.request.user).exists()
+
         return context
 
 
@@ -41,6 +47,9 @@ class AdDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['request'] = self.request
+        ad = self.get_object()
+        responded = Response.objects.filter(ad=ad, author=self.request.user).exists()
+        context['responded'] = responded
         return context
 
     def get_object(self, queryset=None):
@@ -90,7 +99,6 @@ def ad_delete(request, pk):
     else:
         messages.error(request, _('You do not have permission to delete this ad.'))
         return redirect('ad_detail', pk=pk)
-
 
 
 @login_required

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+
+{% block title %}{% trans "Response board" %}{% endblock %}
+
+{% block content %}
+    {% include 'response_board/response_board_paginator.html' %}
+
+    {% for response in responses %}
+        {{ response }}
+    {% endfor %}
+    {% include 'response_board/response_board_paginator.html' %}
+{% endblock %}
