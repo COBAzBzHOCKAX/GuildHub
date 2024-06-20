@@ -1,42 +1,47 @@
-<html>
-<head>
-    <title>Select User for Chat</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
-<body>
-    <h1>Select User for Chat</h1>
-    <div id="user-list"></div>
-    <button onclick="fetchUsers()">Load Users</button>
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Select User for Chat" %}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="my-4">{% trans "Select User for Chat" %}</h2>
+    <div id="user-list" class="list-group"></div>
+    <button class="btn btn-primary" onclick="fetchUsers()">{% trans "Load Users" %}</button>
 
     <script>
         function fetchUsers() {
-            $.ajax({
-                url: '/api/users/',  // Assumes you have an endpoint to fetch user list
-                method: 'GET',
-                success: function(data) {
+            fetch('/api/users/')
+                .then(response => response.json())
+                .then(data => {
                     $('#user-list').empty();
-                    data.forEach(function(user) {
-                        $('#user-list').append('<div>' + user.username + ' <button onclick="startChat(\'' + user.username + '\')">Chat</button></div>');
+                    data.forEach(user => {
+                        $('#user-list').append(`
+                            <div class="list-group-item d-flex justify-content-between align-items-center">
+                                ${user.nickname}
+                                <button class="btn btn-primary" onclick="startChat('${user.nickname}')">{% trans "Chat" %}</button>
+                            </div>
+                        `);
                     });
-                }
-            });
+                })
+                .catch(error => console.error('Error fetching users:', error));
         }
 
-        function startChat(username) {
-            $.ajax({
-                url: '/api/chats/create-or-get/',
+        function startChat(nickname) {
+            fetch('/api/chats/create-or-get/', {
                 method: 'POST',
                 headers: {
+                    'Content-Type': 'application/json',
                     'X-CSRFToken': '{{ csrf_token }}'
                 },
-                data: {
-                    username: username
-                },
-                success: function(data) {
-                    window.location.href = '/chat/' + data.id + '/';
-                }
-            });
+                body: JSON.stringify({ username: nickname })
+            })
+            .then(response => response.json())
+            .then(data => {
+                window.location.href = `/chat/${data.id}/`;
+            })
+            .catch(error => console.error('Error starting chat:', error));
         }
     </script>
-</body>
-</html>
+</div>
+{% endblock %}

@@ -8,7 +8,7 @@ from django.utils.translation import gettext as _
 from django.contrib import messages
 
 from response_board.models import Response
-from .filters import AdFilter
+from .filters import AdFilter, MyAdsFilter
 from .forms import AdForm
 from .models import Ad
 
@@ -34,7 +34,37 @@ class AdBoardView(ListView):
 
         ad_list = context['ad_list']
         for ad in ad_list:
-            ad.responded = Response.objects.filter(ad=ad, author=self.request.user).exists()
+            if self.request.user.is_authenticated:
+                ad.responded = Response.objects.filter(ad=ad, author=self.request.user).exists()
+            else:
+                ad.responded = False
+
+        return context
+
+
+class MyAdsView(LoginRequiredMixin, ListView):
+    model = Ad
+    ordering = ['date_creation']
+    template_name = 'ad_board/ad_board.html'
+    context_object_name = 'ad_list'
+    paginate_by = PAGINATE_BY
+
+    def get_queryset(self):
+        queryset = super().get_queryset().filter(user=self.request.user)
+        self.filterset = MyAdsFilter(self.request.GET, queryset)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filterset'] = self.filterset
+        context['my_ads'] = True
+
+        ad_list = context['ad_list']
+        for ad in ad_list:
+            if self.request.user.is_authenticated:
+                ad.responded = Response.objects.filter(ad=ad, author=self.request.user).exists()
+            else:
+                ad.responded = False
 
         return context
 
@@ -48,8 +78,8 @@ class AdDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['request'] = self.request
         ad = self.get_object()
-        responded = Response.objects.filter(ad=ad, author=self.request.user).exists()
-        context['responded'] = responded
+        context['responded'] = Response.objects.filter(ad=ad, author=self.request.user).exists()
+        context['responses'] = Response.objects.filter(ad=ad)
         return context
 
     def get_object(self, queryset=None):

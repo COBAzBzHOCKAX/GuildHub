@@ -5,10 +5,15 @@
 {% block title %}{% trans "Response board" %}{% endblock %}
 
 {% block content %}
-    {% include 'response_board/response_board_paginator.html' %}
-
-    {% for response in responses %}
-        {{ response }}
-    {% endfor %}
-    {% include 'response_board/response_board_paginator.html' %}
+    <div class="container">
+        {% include 'response_board/response_board_filter.html' with clear_filter_url='respond_board' %}
+    
+        {% include 'pagination.html' %}
+        
+        <h1>{% trans "Response board" %}</h1>
+        
+        {% include 'response_board/response_list.html' %}
+    
+        {% include 'pagination.html' %}
+    </div>
 {% endblock %}

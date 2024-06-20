@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+
+{% block title %}{% trans "Response board" %}{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {% include 'response_board/response_board_filter.html' with clear_filter_url='my_responses' %}
+    
+        {% include 'pagination.html' %}
+        
+        <h1>{% trans "My responses" %}</h1>
+        {% for response in responses %}
+            <div class="card mt-3">
+                <div class="card-body">
+                    <div class="mb-3">
+                        <h5 class="card-title">{% trans 'Ad:' %}</h5>
+                        <h5 class="card-title">{{ response.ad.title }}</h5>
+                        <p class="card-text">{{ response.ad.text.html | truncatechars_html:60 | truncatewords_html:5 | safe }}</p>
+                        <a href="{% url 'ad_detail' response.ad.pk %}">{% trans 'View Ad' %}</a>
+                    </div>
+                    <hr>
+                    
+                    <h5 class="card-title">{% trans 'Response:' %}</h5>
+                    <p class="card-text">{{ response.text }}</p>
+                    {% if response.status == 'PEN' %}
+                        <p class="text-warning">{% trans "Pending" %}</p>
+                    {% elif response.status == 'ACC' %}
+                        <p class="text-success">{% trans "Accepted" %}</p>
+                    {% elif response.status == 'DEC' %}
+                        <p class="text-danger">{% trans "Declined" %}</p>
+                    {% endif %}
+                </div>
+            </div>
+        {% empty %}
+            <p>{% trans "There are no responses from you." %}</p>
+        {% endfor %}
+    
+        {% include 'pagination.html' %}
+    </div>
+{% endblock %}

@@ -54,3 +54,32 @@ class AdFilter(FilterSet):
         max_brith_year = today.year - value - 1
         queryset = queryset.filter(user__date_birth__year__gte=max_brith_year)
         return queryset
+
+
+class MyAdsFilter(FilterSet):
+    categories = ModelMultipleChoiceFilter(
+        field_name='category',
+        queryset=Category.objects.all(),
+        label=_('Categories'),
+    )
+
+    start_date = DateFilter(
+        field_name='date_published',
+        widget=forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+        lookup_expr='gte',
+        label=_('Start Date'),
+    )
+
+    end_date = DateFilter(
+        field_name='date_published',
+        widget=forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+        lookup_expr='lte',
+        label=_('End Date'),
+    )
+
+    class Meta:
+        model = Ad
+        fields = {
+            'title': ['icontains'],
+            'text': ['icontains'],
+        }

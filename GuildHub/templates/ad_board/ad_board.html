@@ -2,23 +2,26 @@
 {% load i18n %}
 
 {% block title %}
-    {% trans 'Ad board' %}
+    {% if my_ads %}
+        {% trans 'My ads' %}
+    {% else %}
+        {% trans 'Ad board' %}
+    {% endif %}
 {% endblock title %}
 
 {% block content %}
     <div class="container">
-        <h2>{% trans "Ad board" %}</h2>
+        <h2>
+            {% if my_ads %}{% trans "My ads" %}{% else %}{% trans "Ad board" %}{% endif %}
+        </h2>
     
         {% if user.is_authenticated and not user.is_banned %}
-            <a href="{% url 'ad_create' %}" class="btn btn-primary">{% trans 'Add Ad' %}</a>
+            <a href="{% url 'ad_create' %}" class="btn btn-primary">{% trans 'Add Ad' %}</a><br><br>
         {% elif user.is_banned %}
             <p>{% trans 'A banned user cannot create ads' %}</p>
         {% else %}
             <p>{% trans 'To create an ad, you must log in' %}</p>
         {% endif %}
-
-        <br>
-        <br>
         
         {# filter #}
         {% include 'ad_board/ad_board_filter.html' %}
@@ -27,38 +30,47 @@
         {% if ad_list %}
 
             {# Ad board pagination #}
-            {% include 'ad_board/ad_board_pagination.html' %}
+            {% include 'pagination.html' %}
             <br>
 
             {% for ad in ad_list %}
                 <div class="ad-container" onclick="location.href='{% url 'ad_detail' ad.id %}'" style="cursor: pointer;">
                     
-                    {# User badge #}
-                    {% include 'users/user_badge.html' with user=ad.user ad=ad %}
+                    {# Ad card #}
+                    {% if not my_ads %}
+                        {# User badge #}
+                        {% include 'users/user_badge.html' with user=ad.user ad=ad %}
                     
-                    <div class="ad-body">
-                        <h5>{{ ad.title }}</h5>
-                        <p class="category">{% trans 'Category' %}: {{ ad.category.category_name }}</p>
-                        <p>{{ ad.text.html | truncatewords_html:200 | truncatechars_html:1170 | safe }}</p>
-                    </div>
+                        {# Ad body #}
+                        <div class="ad-body">
+                            <h5>{{ ad.title }}</h5>
+                            <p class="category">{% trans 'Category' %}: {{ ad.category.category_name }}</p>
+                            <p>{{ ad.text.html | truncatewords_html:200 | truncatechars_html:1170 | safe }}</p>
+                        </div>
+                    {% else %}
+                    {% endif %}
+                        <div class="ad-body">
+                            <h5>{{ ad.title }}</h5>
+                            {% trans 'published on' %}: 
+                            {% if ad.is_published %}
+                                {{ ad.date_published|date:"d M Y, H:i" }}
+                            {% else %}
+                                <span class="unpublished">{% trans 'unpublished' %}</span>
+                            {% endif %}
+                            <p class="category">{% trans 'Category' %}: {{ ad.category.category_name }}</p>
+                            <p>{{ ad.text.html | truncatewords_html:5 | truncatechars_html:60 | safe }}</p>
+                        </div>
                     {% include 'ad_board/response_button.html' with ad=ad responded=ad.responded %}
                 </div>
             {% endfor %}
 
             {# Ad board pagination #}
-            {% include 'ad_board/ad_board_pagination.html' %}
+            {% include 'pagination.html' %}
 
         {% else %}
             <h2>{% trans "No Posts" %}</h2>
         {% endif %}
     </div>
-
-    <script>
-        function toggleFilterForm() {
-            var formContainer = document.getElementById('filter-form-container');
-            formContainer.style.display = (formContainer.style.display === 'none') ? 'block' : 'none';
-        }
-    </script>
 
     <style>
         #toggle-filter-form, #clear-filter {

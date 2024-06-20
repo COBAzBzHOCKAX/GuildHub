@@ -1,52 +1,76 @@
-<!-- chat_room.html -->
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Chat Room</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
-<body>
-    <h1>Chat Room</h1>
-    <div id="chat-log"></div>
-    <input id="chat-message-input" type="text" size="100">
-    <button id="chat-message-submit">Send</button>
+{% extends 'base.html' %}
+{% load i18n %}
 
-    <script>
-        const chatId = 1;  // Replace with dynamic chat ID
+{% block title %}{% trans "Chat Room" %}{% endblock %}
 
-        function getMessages() {
-            $.ajax({
-                url: `/api/chats/${chatId}/messages/`,
-                method: 'GET',
-                success: function(data) {
-                    $('#chat-log').empty();
-                    data.forEach(function(message) {
-                        $('#chat-log').append('<div>' + message.sender_username + ': ' + message.content + '</div>');
-                    });
+{% block content %}
+<div class="container">
+    <h2 class="my-4">{% trans "Chat Room" %}</h2>
+    <div id="chat-log" class="border rounded p-3 mb-3" style="height: 300px; overflow-y: scroll;">
+        {% for message in messages %}
+            <div>
+                <strong>{{ message.sender.nickname }}:</strong> {{ message.content }}
+            </div>
+        {% endfor %}
+    </div>
+    <div class="input-group mb-3">
+        <input id="chat-message-input" type="text" class="form-control" placeholder="{% trans 'Type your message here...' %}">
+        <div class="input-group-append">
+            <button id="chat-message-submit" class="btn btn-primary">{% trans "Send" %}</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const chatId = "{{ chat.id }}";
+
+    function getMessages() {
+        fetch(`/api/chats/${chatId}/messages/`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
-            });
+                return response.json();
+            })
+            .then(data => {
+                $('#chat-log').empty();
+                data.forEach(message => {
+                    $('#chat-log').append(`<div><strong>${message.sender__nickname}:</strong> ${message.content}</div>`);
+                });
+            })
+            .catch(error => console.error('Error fetching messages:', error));
+    }
+
+    function sendMessage(message) {
+        fetch(`/api/chats/${chatId}/messages/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({ content: message })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(() => {
+            $('#chat-message-input').val('');
+            getMessages();
+        })
+        .catch(error => console.error('Error sending message:', error));
+    }
+
+    $('#chat-message-submit').click(function() {
+        const message = $('#chat-message-input').val();
+        if (message.trim()) {
+            sendMessage(message);
         }
+    });
 
-        $('#chat-message-submit').click(function() {
-            const message = $('#chat-message-input').val();
-            $.ajax({
-                url: `/api/chats/${chatId}/messages/`,
-                method: 'POST',
-                headers: {
-                    'X-CSRFToken': '{{ csrf_token }}'
-                },
-                data: {
-                    content: message
-                },
-                success: function() {
-                    $('#chat-message-input').val('');
-                    getMessages();
-                }
-            });
-        });
-
-        setInterval(getMessages, 2000);  // Fetch new messages every 2 seconds
-        getMessages();  // Initial fetch
-    </script>
-</body>
-</html>
+    setInterval(getMessages, 2000);  // Fetch new messages every 2 seconds
+    getMessages();  // Initial fetch
+</script>
+{% endblock %}

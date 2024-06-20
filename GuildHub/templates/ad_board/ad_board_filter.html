@@ -45,3 +45,10 @@
         </div>
     {% endwith %}
 {% endif %}
+
+<script>
+    function toggleFilterForm() {
+        var formContainer = document.getElementById('filter-form-container');
+        formContainer.style.display = (formContainer.style.display === 'none') ? 'block' : 'none';
+    }
+</script>

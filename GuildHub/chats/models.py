@@ -9,14 +9,15 @@ class Chat(models.Model):
 
     def save(self, *args, **kwargs):
         if self.pk is None:
-            super().save(*args, **kwargs)
+            super().save(*args, **kwargs)  # Сохраняем объект, чтобы получить pk
             participants = self.participants.all()
             if Chat.objects.filter(participants__in=participants).distinct().count() > 1:
                 raise ValidationError('Chat with these participants already exists.')
-        super().save(*args, **kwargs)
+        else:
+            super().save(*args, **kwargs)
 
     def __str__(self):
-        return ", ".join([user.username for user in self.participants.all()])
+        return ", ".join([user.nickname for user in self.participants.all()])
 
 
 class Message(models.Model):
