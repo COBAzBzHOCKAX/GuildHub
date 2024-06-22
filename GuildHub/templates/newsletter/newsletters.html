@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}
+    {% trans 'Newsletters' %}
+{% endblock title %}
+
+{% block content %}
+    <div class="container">
+    
+        {% if request.user.is_staff %}
+            <div class="mb-4">
+                <a href="{% url 'newsletter_create' %}" class="btn btn-primary">{% trans 'Create Newsletter' %}</a>
+            </div>
+        {% endif %}
+    
+        {% if newsletters %}
+            <h2>{% trans "Newsletters" %}</h2>
+        {% endif %}
+
+        {# newsletter board pagination #}
+        {% include 'pagination.html' %}
+        <br>
+
+        {% for newsletter in newsletters %}
+            <div class="ad-container" onclick="location.href='{% url 'newsletter_detail' newsletter.id %}'" style="cursor: pointer;">
+                <div class="ad-body">
+                    <h5>{{ newsletter.title }}</h5>
+                    {% trans 'published on' %}: 
+                    {% if newsletter.is_published %}
+                        {{ newsletter.date_creation|date:"d M Y, H:i" }}
+                    {% else %}
+                        <span class="unpublished">{% trans 'unpublished' %}</span>
+                    {% endif %}
+                    <p>{{ newsletter.text.html | truncatewords_html:5 | truncatechars_html:60 | safe }}</p>
+                </div>
+            </div>
+        {% empty %}
+            <h2>{% trans "No Newsletters" %}</h2>
+        {% endfor %}
+
+        {# newsletter board pagination #}
+        {% include 'pagination.html' %}
+    </div>
+
+    <style>
+        #toggle-filter-form, #clear-filter {
+            margin-bottom: 10px;
+            display: inline-block;
+            margin-right: 10px;
+        }
+        #applied-filters {
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+    </style>
+{% endblock content %}

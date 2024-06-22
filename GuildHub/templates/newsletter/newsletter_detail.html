@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}
+    {{ newsletter.title }}
+{% endblock title %}
+
+{% block content %}
+    <div class="container">
+        {% if request.user.is_staff %}
+            {% include 'newsletter/newsletter_actions.html' %}
+        {% endif %}
+        
+        <h1>{{ newsletter.title }}</h1>
+        {% if newsletter.is_published %}
+            {% trans 'published on' %}: {{ newsletter.date_creation|date:"d M Y, H:i" }}
+        {% else %}
+            <span class="unpublished">{% trans 'unpublished' %}</span>
+        {% endif %}
+        <p class="ad-text">{{ newsletter.text.html | safe }}</p>
+    
+    </div>
+{% endblock content %}

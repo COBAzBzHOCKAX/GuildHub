@@ -1,6 +1,7 @@
 from functools import wraps
 
 from django.contrib.auth.mixins import UserPassesTestMixin, AccessMixin
+from django.core.exceptions import PermissionDenied
 from django.http import Http404, HttpResponseForbidden
 from django.utils.decorators import method_decorator
 
@@ -31,5 +32,19 @@ def user_is_not_banned(view_func):
     def _wrapped_view(request, *args, **kwargs):
         if request.user.is_authenticated and request.user.is_banned:
             return HttpResponseForbidden("You are banned from accessing this page.")
+        return view_func(request, *args, **kwargs)
+    return _wrapped_view
+
+
+class StaffRequiredMixin(UserPassesTestMixin):
+    def test_func(self):
+        return self.request.user.is_staff
+
+
+def staff_required(view_func):
+    @wraps(view_func)
+    def _wrapped_view(request, *args, **kwargs):
+        if not request.user.is_staff:
+            raise PermissionDenied
         return view_func(request, *args, **kwargs)
     return _wrapped_view

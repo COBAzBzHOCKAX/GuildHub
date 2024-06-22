@@ -1,27 +1,17 @@
 {% extends 'base.html' %}
 {% load i18n %}
 
-<head>
-<title>
 {% block title %}
-    {% trans 'Create ad' %}
+    {% trans 'Create Newsletter' %}
 {% endblock title %}
-</title>
-</head>
 
 {% block content %}
-    <div class="container">
-        <h2>
-            {% if is_update %}
-                {% trans 'Editing an ad' %}
-            {% else %}
-                {% trans 'Create New Ad' %}
-            {% endif %}
-        </h2>
-        <form action="" method="post">
+    <div class="container mt-4 mb-4">
+        <h2>{% trans 'Create Newsletter' %}</h2>
+        <form method="post" action="" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">{% trans 'Submit' %}</button>
+            <button type="submit" class="btn btn-primary">{% trans 'Create' %}</button>
         </form>
     </div>
     <style>

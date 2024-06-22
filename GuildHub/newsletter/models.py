@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django_quill.fields import QuillField
 
 from config import settings
@@ -28,3 +29,10 @@ class Newsletter(models.Model):
         if len(self.text) > 50:
             return self.text[:50] + '...'
         return self.text
+
+    def save(self, *args, **kwargs):
+        if self.pk:
+            old_status = Newsletter.objects.get(pk=self.pk).is_published
+            if self.is_published and not old_status:
+                self.date_creation = timezone.now()
+        super().save(*args, **kwargs)

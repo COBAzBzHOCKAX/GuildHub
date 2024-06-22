@@ -47,7 +47,6 @@
                             <p class="category">{% trans 'Category' %}: {{ ad.category.category_name }}</p>
                             <p>{{ ad.text.html | truncatewords_html:200 | truncatechars_html:1170 | safe }}</p>
                         </div>
-                    {% else %}
                     {% endif %}
                         <div class="ad-body">
                             <h5>{{ ad.title }}</h5>

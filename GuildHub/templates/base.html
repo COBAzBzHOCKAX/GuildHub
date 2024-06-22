@@ -20,10 +20,10 @@
 
 <div class="wrapper d-flex align-items-stretch">
     <nav id="sidebar" class="active">
-        <h4><a href="#" class="logo">Guild Hub</a></h4>
+        <h4><a href="{% url 'newsletters' %}" class="logo">Guild Hub</a></h4>
         <ul class="list-unstyled components mb-5">
             <li class="active">
-                <a href="#"><span class="fa fa-home"></span> {% trans 'News' %}</a>
+                <a href="{% url 'newsletters' %}"><span class="fa fa-home"></span> {% trans 'News' %}</a>
             </li>
             <li>
                 <a href="{% url 'ad_board' %}"><span class="fa fa-clipboard"></span> {% trans 'Ad board' %}</a>
@@ -104,41 +104,41 @@
     <div class="container">
         <div class="row">
             <div class="col-md-3">
-                <h5 style="color: #343a40;">Site Appearance</h5>
+                <h5 style="color: #343a40;">{% trans 'Site Appearance' %}</h5>
                 <ul class="list-unstyled">
-                    <li><a class="text-dark">WIP!</a></li>
+                    <li><a class="text-dark">{% trans 'WIP!' %}</a></li>
                 </ul>
             </div>
             <div class="col-md-3">
-                <h5 style="color: #343a40;">Account</h5>
+                <h5 style="color: #343a40;">{% trans 'Account' %}</h5>
                 <ul class="list-unstyled">
-                    <li><a href="{% url 'account_login' %}" class="text-dark">Login</a></li>
-                    <li><a href="{% url 'account_signup' %}" class="text-dark">Sign Up</a></li>
+                    <li><a href="{% url 'account_login' %}" class="text-dark">{% trans 'Login' %}</a></li>
+                    <li><a href="{% url 'account_signup' %}" class="text-dark">{% trans 'Sign Up' %}</a></li>
                 </ul>
             </div>
             <div class="col-md-3">
                 <h5 style="color: #343a40;">Sections</h5>
                 <ul class="list-unstyled">
-                    <li><a href="#" class="text-dark">Home</a></li>
-                    <li><a href="{% url 'ad_board' %}" class="text-dark">Ad Board</a></li>
-                    <li><a href="{{ site_url }}/wip/" class="text-dark">Leagues</a></li>
-                    <li><a href="{{ site_url }}/wip/" class="text-dark">Teams</a></li>
-                    <li><a href="{{ site_url }}/wip/" class="text-dark">Gamers</a></li>
-                    <li><a href="{{ site_url }}/wip/" class="text-dark">Ideas</a></li>
+                    <li><a href="{% url 'newsletters' %}" class="text-dark">{% trans 'Home' %}</a></li>
+                    <li><a href="{% url 'ad_board' %}" class="text-dark">{% trans 'Ad Board' %}</a></li>
+                    <li><a href="{{ site_url }}/wip/" class="text-dark">{% trans 'Leagues' %}</a></li>
+                    <li><a href="{{ site_url }}/wip/" class="text-dark">{% trans 'Teams' %}</a></li>
+                    <li><a href="{{ site_url }}/wip/" class="text-dark">{% trans 'Gamers' %}</a></li>
+                    <li><a href="{{ site_url }}/wip/" class="text-dark">{% trans 'Ideas' %}</a></li>
                 </ul>
             </div>
             <div class="col-md-3">
                 <h5 style="color: #343a40;">Information</h5>
                 <ul class="list-unstyled">
-                    <li><a href="#" class="text-dark">Terms of Service</a></li>
-                    <li><a href="#" class="text-dark">Privacy Policy</a></li>
-                    <li><a href="#" class="text-dark">Developers</a></li>
+                    <li><a href="#" class="text-dark">{% trans 'Terms of Service' %}</a></li>
+                    <li><a href="#" class="text-dark">{% trans 'Privacy Policy' %}</a></li>
+                    <li><a href="#" class="text-dark">{% trans 'Developers' %}</a></li>
                 </ul>
             </div>
         </div>
         <div class="text-center py-3">
             <p class="mb-0" style="color: #343a40;">
-                &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved by <a href="https://t.me/COBA_B_HOCKAX" class="text-dark" target="_blank">COBA_B_HOCKAX</a>
+                &copy; <script>document.write(new Date().getFullYear());</script> {% trans 'All rights reserved by' %} <a href="https://t.me/COBA_B_HOCKAX" class="text-dark" target="_blank">COBA_B_HOCKAX</a>
             </p>
         </div>
     </div>
