@@ -11,6 +11,6 @@ class RequireNicknameMiddleware:
         user = request.user
 
         if user.is_authenticated and not user.nickname:
-            return redirect(reverse('profile_update', kwargs={'pk': user.pk}))
+            return redirect(reverse('profile _update', kwargs={'pk': user.pk}))
 
         return response

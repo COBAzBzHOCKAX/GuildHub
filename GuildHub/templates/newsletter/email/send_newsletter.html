@@ -1,0 +1,5 @@
+{% load i18n %}
+
+<h2>{{ newsletter.title }}</h2>
+<p>{{ newsletter.text.html | truncatewords_html:30 | truncatechars_html:200 | safe }}</p>
+<p>{% trans 'Read more on' %} <a href="{% url 'newsletter_detail' newsletter.id %}">Guild Hub</a></p>

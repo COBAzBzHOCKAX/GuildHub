@@ -25,7 +25,7 @@ def user_is_ad_owner(view_func):
     """
     @wraps(view_func)
     def _wrapped_view(request, *args, **kwargs):
-        ad = get_object_or_404(Response, pk=kwargs['pk']).ad
+        ad = get_object_or_404(Response.objects.select_related('ad'), pk=kwargs['pk']).ad
         if ad.user != request.user:
             raise PermissionDenied
         return view_func(request, *args, **kwargs)

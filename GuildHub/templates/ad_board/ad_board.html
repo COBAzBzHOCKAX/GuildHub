@@ -47,7 +47,7 @@
                             <p class="category">{% trans 'Category' %}: {{ ad.category.category_name }}</p>
                             <p>{{ ad.text.html | truncatewords_html:200 | truncatechars_html:1170 | safe }}</p>
                         </div>
-                    {% endif %}
+                    {% else %}
                         <div class="ad-body">
                             <h5>{{ ad.title }}</h5>
                             {% trans 'published on' %}: 
@@ -59,6 +59,7 @@
                             <p class="category">{% trans 'Category' %}: {{ ad.category.category_name }}</p>
                             <p>{{ ad.text.html | truncatewords_html:5 | truncatechars_html:60 | safe }}</p>
                         </div>
+                    {% endif %}
                     {% include 'ad_board/response_button.html' with ad=ad responded=ad.responded %}
                 </div>
             {% endfor %}

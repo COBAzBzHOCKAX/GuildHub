@@ -1,10 +1,12 @@
+from django.contrib.auth import get_user_model
 from django.core.validators import MaxLengthValidator
 from django.utils import timezone
 
 from chats.models import Chat, Message
-from config import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+
+User = get_user_model()
 
 
 class Response(models.Model):
@@ -20,7 +22,7 @@ class Response(models.Model):
         verbose_name=_('Status'),
         help_text=_('Shows the current status of this request'),
     )
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name=_('Author'))
+    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_('Author'))
     ad = models.ForeignKey('ad_board.Ad', on_delete=models.CASCADE, verbose_name=_('Ad'))
     text = models.TextField(
         verbose_name=_('Text'),
@@ -51,4 +53,4 @@ class Response(models.Model):
         return self.text[:50]
 
     def __str__(self):
-        return f'{self.author} - {self.short_text}'
+        return f'Response ID: {self.id} - {self.short_text()}'

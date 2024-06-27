@@ -6,6 +6,10 @@ django-filter
 django-quill-editor
 djangorestframework
 
+celery
+redis
+celery[redis]
+
 # Localization
 django-modeltranslation
 

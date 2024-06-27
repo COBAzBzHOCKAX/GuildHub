@@ -1,0 +1,1031 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-06-28 01:58+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: .\ad_board\admin.py:19 .\users\models.py:59
+msgid "Nickname"
+msgstr "Никнейм"
+
+#: .\ad_board\admin.py:20 .\ad_board\forms.py:13 .\ad_board\models.py:16
+#: .\newsletter\admin.py:15 .\newsletter\models.py:14
+msgid "Title"
+msgstr "Заголовок"
+
+#: .\ad_board\apps.py:8
+msgid "Ad boards"
+msgstr "Объявления"
+
+#: .\ad_board\filters.py:13 .\ad_board\filters.py:63 .\ad_board\models.py:157
+#: .\templates\ad_board\ad_board_filter.html:26
+msgid "Categories"
+msgstr "Категории"
+
+#: .\ad_board\filters.py:20 .\ad_board\filters.py:70
+#: .\templates\ad_board\ad_board_filter.html:28
+msgid "Start Date"
+msgstr "Дата начала"
+
+#: .\ad_board\filters.py:27 .\ad_board\filters.py:77
+#: .\templates\ad_board\ad_board_filter.html:30
+msgid "End Date"
+msgstr "Дата окончания"
+
+#: .\ad_board\filters.py:32 .\templates\ad_board\ad_board_filter.html:32
+msgid "Minimum Age"
+msgstr "Минимальный возраст"
+
+#: .\ad_board\filters.py:37 .\templates\ad_board\ad_board_filter.html:34
+msgid "Maximum Age"
+msgstr "Максимальный возраст"
+
+#: .\ad_board\forms.py:13 .\ad_board\models.py:16 .\newsletter\models.py:14
+msgid "Enter your title here"
+msgstr "Введите ваш заголовок здесь"
+
+#: .\ad_board\forms.py:14 .\ad_board\models.py:17 .\newsletter\models.py:15
+msgid "Enter your text here"
+msgstr "Введите ваш текст здесь"
+
+#: .\ad_board\forms.py:17 .\ad_board\models.py:18 .\ad_board\models.py:156
+#: .\templates\ad_board\ad_board.html:47 .\templates\ad_board\ad_board.html:59
+#: .\templates\ad_board\ad_detail.html:16
+msgid "Category"
+msgstr "Категория"
+
+#: .\ad_board\forms.py:18
+msgid "Specify the ad category"
+msgstr "Выберите категорию объявления"
+
+#: .\ad_board\forms.py:29 .\ad_board\models.py:151
+msgid "Category name"
+msgstr "Название категории"
+
+#: .\ad_board\forms.py:30 .\ad_board\models.py:152
+msgid "Enter your category name here"
+msgstr "Введите название вашей категории здесь"
+
+#: .\ad_board\models.py:17 .\newsletter\admin.py:16 .\newsletter\models.py:15
+#: .\response_board\models.py:28
+msgid "Text"
+msgstr "Текст"
+
+#: .\ad_board\models.py:19 .\users\models.py:160
+msgid "User"
+msgstr "Пользователь"
+
+#: .\ad_board\models.py:20 .\newsletter\models.py:17
+msgid "Is published"
+msgstr "Опубликовано"
+
+#: .\ad_board\models.py:21
+msgid "Date of publication"
+msgstr "Дата публикации"
+
+#: .\ad_board\models.py:22 .\newsletter\models.py:16
+#: .\response_board\models.py:32
+msgid "Date of creation"
+msgstr "Дата создания"
+
+#: .\ad_board\models.py:23 .\response_board\models.py:33
+msgid "Date of change"
+msgstr "Дата изменения"
+
+#: .\ad_board\models.py:26 .\response_board\models.py:26
+msgid "Ad"
+msgstr "Объявление"
+
+#: .\ad_board\models.py:27
+msgid "Ads"
+msgstr "Объявления"
+
+#: .\ad_board\views.py:131
+msgid "Ad has been deleted successfully."
+msgstr "Объявление успешно удалено."
+
+#: .\ad_board\views.py:134
+msgid "You do not have permission to delete this ad."
+msgstr "У вас нет прав для удаления этого объявления."
+
+#: .\ad_board\views.py:144
+msgid "Ad has been published successfully."
+msgstr "Объявление успешно опубликовано."
+
+#: .\ad_board\views.py:146
+msgid "You do not have permission to publish this ad."
+msgstr "У вас нет прав для публикации этого объявления."
+
+#: .\ad_board\views.py:156
+msgid "Ad has been unpublished successfully."
+msgstr "Объявление успешно снято с публикации."
+
+#: .\ad_board\views.py:158
+msgid "You do not have permission to unpublish this ad."
+msgstr "У вас нет прав для снятия с публикации этого объявления."
+
+#: .\chats\apps.py:8 .\templates\base.html:70
+msgid "Chats"
+msgstr "Чаты"
+
+#: .\newsletter\apps.py:8 .\newsletter\models.py:22
+#: .\templates\newsletter\newsletters.html:5
+#: .\templates\newsletter\newsletters.html:18
+msgid "Newsletters"
+msgstr "Рассылки"
+
+#: .\newsletter\models.py:13 .\response_board\models.py:25
+msgid "Author"
+msgstr "Автор"
+
+#: .\newsletter\models.py:18
+msgid "Email sent"
+msgstr "Отправлено писем"
+
+#: .\newsletter\models.py:21
+msgid "Newsletter"
+msgstr "Новостная рассылка"
+
+#: .\newsletter\tasks.py:25
+msgid "Guild Hub (Newsletter) - {}"
+msgstr "Guild Hub (Новостная рассылка) - {}"
+
+#: .\response_board\apps.py:8
+msgid "Response boards"
+msgstr "Доска откликов"
+
+#: .\response_board\filters.py:16 .\response_board\models.py:22
+#: .\templates\response_board\response_board_filter.html:24
+msgid "Status"
+msgstr "Статус"
+
+#: .\response_board\filters.py:22
+#: .\templates\response_board\response_board_filter.html:26
+msgid "Replied on start Date"
+msgstr "Дата начала ответа"
+
+#: .\response_board\filters.py:28
+#: .\templates\response_board\response_board_filter.html:28
+msgid "Replied on end Date"
+msgstr "Дата окончания ответа"
+
+#: .\response_board\filters.py:33
+#: .\templates\response_board\response_board_filter.html:30
+msgid "Ad Title"
+msgstr "Заголовок объявления"
+
+#: .\response_board\filters.py:35
+msgid "All Ads"
+msgstr "Все объявления"
+
+#: .\response_board\models.py:14
+#: .\templates\response_board\my_responses.html:28
+msgid "Pending"
+msgstr "На рассмотрении"
+
+#: .\response_board\models.py:15
+#: .\templates\response_board\my_responses.html:30
+#: .\templates\response_board\response_list.html:26
+msgid "Accepted"
+msgstr "Принято"
+
+#: .\response_board\models.py:16
+#: .\templates\response_board\my_responses.html:32
+#: .\templates\response_board\response_list.html:28
+msgid "Declined"
+msgstr "Отклонено"
+
+#: .\response_board\models.py:23
+msgid "Shows the current status of this request"
+msgstr "Показывает текущий статус этого запроса"
+
+#: .\response_board\models.py:29
+msgid "Enter your text here (1000 characters max)"
+msgstr "Введите ваш текст здесь (максимум 1000 символов)"
+
+#: .\response_board\models.py:34
+msgid "Date of status change"
+msgstr "Дата изменения статуса"
+
+#: .\response_board\models.py:37 .\templates\ad_board\response_button.html:9
+#: .\templates\response_board\respond_to_ad.html:20
+msgid "Response"
+msgstr "Отклик"
+
+#: .\response_board\models.py:38
+msgid "Responses"
+msgstr "Отклики"
+
+#: .\response_board\tasks.py:26
+#, python-brace-format
+msgid "New response for your ad: {title_ad}."
+msgstr "Новый отклик на ваше объявление: {title_ad}."
+
+#: .\response_board\tasks.py:27
+#, python-brace-format
+msgid ""
+"To your ad \"{title_ad}\", the user {nickname_responded} made a response, "
+"with the text: \"{response_text}\"."
+msgstr ""
+"Пользователь {nickname_responded} откликнулся на ваше объявление "
+"\"{title_ad}\". Текст отклика: \"{response_text}\"."
+
+#: .\response_board\tasks.py:28
+#, python-brace-format
+msgid ""
+"<p>To your ad \"{title_ad}\", the user {nickname_responded} made a response, "
+"with the text: \"{response_text}\".</p>"
+msgstr ""
+"<p>Пользователь {nickname_responded} откликнулся на ваше объявление "
+"\"{title_ad}\". Текст отклика: \"{response_text}\".</p>"
+
+#: .\response_board\tasks.py:60
+msgid "Your response has been accepted"
+msgstr "Ваш отклик был принят"
+
+#: .\response_board\tasks.py:61
+#, python-brace-format
+msgid ""
+"Your response \"{response_text}\" to the ad \"{ad_title}\" has been accepted."
+msgstr ""
+"Ваш отклик \"{response_text}\" на объявление \"{ad_title}\" был принят."
+
+#: .\response_board\tasks.py:62
+#, python-brace-format
+msgid ""
+"<p>Your response \"{response_text}\" to the ad \"{ad_title}\" has been "
+"accepted.</p>"
+msgstr ""
+"<p>Ваш отклик \"{response_text}\" на объявление \"{ad_title}\" был принят.</"
+"p>"
+
+#: .\response_board\views.py:62
+msgid "You cannot respond to your own ad."
+msgstr "Вы не можете сделать отклик на свои собственные объявления."
+
+#: .\response_board\views.py:68
+msgid "Your response has been submitted successfully."
+msgstr "Ваш отклик успешно отправлен."
+
+#: .\response_board\views.py:96
+msgid "Response has been accepted."
+msgstr "Отклик был принят."
+
+#: .\response_board\views.py:110
+msgid "Response has been declined."
+msgstr "Отклик был отклонён."
+
+#: .\templates\403.html:4
+msgid "Error 403"
+msgstr "Ошибка 403"
+
+#: .\templates\403.html:8
+msgid "403"
+msgstr "403"
+
+#: .\templates\403.html:9
+msgid "Oops! It seems you don't have access to this page."
+msgstr "Упс! Похоже, у вас нет доступа к этой странице."
+
+#: .\templates\account\login.html:6 .\templates\account\login.html:11
+#: .\templates\account\login.html:31 .\templates\base.html:94
+#: .\templates\base.html:119
+msgid "Login"
+msgstr "Вход"
+
+#: .\templates\account\login.html:14
+msgid "Invalid login or password. Please try again."
+msgstr "Неверный логин или пароль. Пожалуйста, попробуйте снова."
+
+#: .\templates\account\login.html:20 .\templates\account\login.html:21
+msgid "Email"
+msgstr "Электронная почта"
+
+#: .\templates\account\login.html:24 .\templates\account\login.html:25
+msgid "Password"
+msgstr "Пароль"
+
+#: .\templates\account\login.html:29
+msgid "Remember Me"
+msgstr "Запомнить меня"
+
+#: .\templates\account\login.html:34
+msgid "Forgot Password?"
+msgstr "Забыли пароль?"
+
+#: .\templates\account\login.html:37
+msgid "Don\\'t have an account? Sign up"
+msgstr "Нет аккаунта? Зарегистрируйтесь"
+
+#: .\templates\account\login.html:41
+msgid "Or login with"
+msgstr "Или войдите через"
+
+#: .\templates\account\login.html:43
+msgid "Login via Yandex"
+msgstr "Вход через Яндекс"
+
+#: .\templates\account\logout.html:5 .\templates\account\logout.html:10
+#: .\templates\account\logout.html:14 .\templates\users\user_detail.html:67
+msgid "Logout"
+msgstr "Выход"
+
+#: .\templates\account\logout.html:11
+msgid "Are you sure you want to logout?"
+msgstr "Вы уверены, что хотите выйти?"
+
+#: .\templates\account\logout.html:15
+#: .\templates\ad_board\ad_confirm_delete.html:16
+#: .\templates\newsletter\newsletter_confirm_delete.html:16
+#: .\templates\newsletter\newsletter_delete.html:15
+msgid "Cancel"
+msgstr "Отмена"
+
+#: .\templates\account\password_reset.html:7
+msgid "Password Reset"
+msgstr "Сброс пароля"
+
+#: .\templates\account\password_reset.html:11
+msgid "Email address"
+msgstr "Адрес электронной почты"
+
+#: .\templates\account\password_reset.html:14
+msgid "Reset Password"
+msgstr "Сбросить пароль"
+
+#: .\templates\account\password_reset_done.html:7
+msgid "Password Reset Sent"
+msgstr "Отправлен запрос на сброс пароля"
+
+#: .\templates\account\password_reset_done.html:8
+msgid ""
+"We have sent you an email with instructions on how to reset your password."
+msgstr "Мы отправили вам электронное письмо с инструкциями по сбросу пароля."
+
+#: .\templates\account\password_reset_from_key.html:6
+#: .\templates\account\password_reset_from_key.html:15
+#: .\templates\account\password_reset_from_key.html:29
+#: .\templates\account\password_reset_from_key_done.html:6
+#: .\templates\account\password_reset_from_key_done.html:11
+msgid "Change Password"
+msgstr "Изменить пароль"
+
+#: .\templates\account\password_reset_from_key.html:13
+msgid "Bad Token"
+msgstr "Недействительный токен"
+
+#: .\templates\account\password_reset_from_key.html:21
+#, python-format
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used. Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
+"a>."
+msgstr ""
+"Ссылка для сброса пароля недействительна, возможно, она уже использована. "
+"Пожалуйста, запросите <a href=\"%(passwd_reset_url)s\">новый запрос на сброс "
+"пароля</a>."
+
+#: .\templates\account\password_reset_from_key_done.html:12
+msgid "Your password is now changed."
+msgstr "Ваш пароль успешно изменён."
+
+#: .\templates\ad_board\ad_actions.html:7
+#: .\templates\newsletter\newsletter_actions.html:7
+msgid "Unpublish"
+msgstr "Снять с публикации"
+
+#: .\templates\ad_board\ad_actions.html:12
+#: .\templates\newsletter\newsletter_actions.html:12
+msgid "Publish"
+msgstr "Опубликовать"
+
+#: .\templates\ad_board\ad_actions.html:15
+#: .\templates\newsletter\newsletter_actions.html:15
+msgid "Edit"
+msgstr "Редактировать"
+
+#: .\templates\ad_board\ad_actions.html:18
+#: .\templates\ad_board\ad_confirm_delete.html:11
+msgid "Are you sure you want to delete this ad?"
+msgstr "Вы уверены, что хотите удалить это объявление?"
+
+#: .\templates\ad_board\ad_actions.html:18
+#: .\templates\ad_board\ad_confirm_delete.html:5
+#: .\templates\ad_board\ad_confirm_delete.html:15
+#: .\templates\newsletter\newsletter_actions.html:18
+#: .\templates\newsletter\newsletter_confirm_delete.html:5
+#: .\templates\newsletter\newsletter_confirm_delete.html:15
+#: .\templates\newsletter\newsletter_delete.html:14
+msgid "Delete"
+msgstr "Удалить"
+
+#: .\templates\ad_board\ad_board.html:6 .\templates\ad_board\ad_board.html:15
+#: .\templates\base.html:76
+msgid "My ads"
+msgstr "Мои объявления"
+
+#: .\templates\ad_board\ad_board.html:8 .\templates\ad_board\ad_board.html:15
+#: .\templates\base.html:33
+msgid "Ad board"
+msgstr "Доска объявлений"
+
+#: .\templates\ad_board\ad_board.html:19
+msgid "Add Ad"
+msgstr "Добавить объявление"
+
+#: .\templates\ad_board\ad_board.html:21
+msgid "A banned user cannot create ads"
+msgstr "Заблокированный пользователь не может создавать объявления"
+
+#: .\templates\ad_board\ad_board.html:23
+msgid "To create an ad, you must log in"
+msgstr "Чтобы создать объявление, вы должны войти в систему"
+
+#: .\templates\ad_board\ad_board.html:53
+#: .\templates\newsletter\newsletter_detail.html:16
+#: .\templates\newsletter\newsletters.html:29
+#: .\templates\users\user_badge.html:27
+msgid "published on"
+msgstr "опубликовано"
+
+#: .\templates\ad_board\ad_board.html:57
+#: .\templates\newsletter\newsletter_detail.html:18
+#: .\templates\newsletter\newsletters.html:33
+#: .\templates\users\user_badge.html:31
+msgid "unpublished"
+msgstr "не опубликовано"
+
+#: .\templates\ad_board\ad_board.html:71
+msgid "No Posts"
+msgstr "Нет объявлений"
+
+#: .\templates\ad_board\ad_board_filter.html:7
+msgid "Search"
+msgstr "Поиск"
+
+#: .\templates\ad_board\ad_board_filter.html:12
+#: .\templates\response_board\response_board_filter.html:12
+msgid "Toggle Filter"
+msgstr "Переключить фильтр"
+
+#: .\templates\ad_board\ad_board_filter.html:18
+#: .\templates\response_board\response_board_filter.html:18
+msgid "Applied Filters:"
+msgstr "Применённые фильтры:"
+
+#: .\templates\ad_board\ad_board_filter.html:24
+msgid "Title contains"
+msgstr "Заголовок содержит"
+
+#: .\templates\ad_board\ad_board_filter.html:42
+#: .\templates\response_board\response_board_filter.html:37
+msgid "Clear Filter"
+msgstr "Очистить фильтр"
+
+#: .\templates\ad_board\ad_confirm_delete.html:10
+msgid "Delete Ad"
+msgstr "Удалить объявление"
+
+#: .\templates\ad_board\ad_create.html:7
+msgid "Create ad"
+msgstr "Создать объявление"
+
+#: .\templates\ad_board\ad_create.html:16
+msgid "Editing an ad"
+msgstr "Редактирование объявления"
+
+#: .\templates\ad_board\ad_create.html:18
+msgid "Create New Ad"
+msgstr "Создать новое объявление"
+
+#: .\templates\ad_board\ad_create.html:24
+msgid "Submit"
+msgstr "Отправить"
+
+#: .\templates\ad_board\ad_detail.html:25
+msgid "Responses to your ad"
+msgstr "Отклики на ваше объявление"
+
+#: .\templates\ad_board\response_button.html:7
+msgid "You have already sent a request for this ad"
+msgstr "Вы уже отправили отклик на это объявление"
+
+#: .\templates\ad_board\response_button.html:12
+msgid "Ad is not published"
+msgstr "Объявление не опубликовано"
+
+#: .\templates\ad_board\response_button.html:15
+msgid "Login to respond"
+msgstr "Войдите, чтобы откликнуться"
+
+#: .\templates\base.html:30
+msgid "News"
+msgstr "Новости"
+
+#: .\templates\base.html:36 .\templates\base.html:128
+msgid "Leagues"
+msgstr "Лиги"
+
+#: .\templates\base.html:39 .\templates\base.html:129
+msgid "Teams"
+msgstr "Команды"
+
+#: .\templates\base.html:42 .\templates\base.html:130
+msgid "Gamers"
+msgstr "Геймеры"
+
+#: .\templates\base.html:45 .\templates\base.html:131
+msgid "Ideas"
+msgstr "Идеи"
+
+#: .\templates\base.html:58
+msgid "Toggle Menu"
+msgstr "Переключить меню"
+
+#: .\templates\base.html:73 .\templates\response_board\my_responses.html:13
+msgid "My responses"
+msgstr "Мои отклики"
+
+#: .\templates\base.html:79 .\templates\response_board\my_responses.html:5
+#: .\templates\response_board\response_board.html:5
+#: .\templates\response_board\response_board.html:13
+msgid "Response board"
+msgstr "Доска откликов"
+
+#: .\templates\base.html:111
+msgid "Site Appearance"
+msgstr "Внешний вид сайта"
+
+#: .\templates\base.html:113
+msgid "WIP!"
+msgstr "В работе!"
+
+#: .\templates\base.html:117
+msgid "Account"
+msgstr "Аккаунт"
+
+#: .\templates\base.html:120 .\templates\socialaccount\signup.html:11
+#: .\templates\socialaccount\signup.html:18
+msgid "Sign Up"
+msgstr "Регистрация"
+
+#: .\templates\base.html:124
+msgid "Sections"
+msgstr "Разделы"
+
+#: .\templates\base.html:126
+msgid "Home"
+msgstr "Главная"
+
+#: .\templates\base.html:127
+msgid "Ad Board"
+msgstr "Доска объявлений"
+
+#: .\templates\base.html:135
+msgid "Information"
+msgstr "Информация"
+
+#: .\templates\base.html:137
+msgid "Terms of Service"
+msgstr "Условия использования"
+
+#: .\templates\base.html:138
+msgid "Privacy Policy"
+msgstr "Политика конфиденциальности"
+
+#: .\templates\base.html:139
+msgid "Developers"
+msgstr "Разработчики"
+
+#: .\templates\base.html:145
+msgid "All rights reserved by"
+msgstr "Все права защищены"
+
+#: .\templates\chats\chat_list.html:4 .\templates\chats\chat_list.html:8
+msgid "Chat List"
+msgstr "Список чатов"
+
+#: .\templates\chats\chat_list.html:17
+msgid "Go to chat"
+msgstr "Перейти к чату"
+
+#: .\templates\chats\chat_room.html:4 .\templates\chats\chat_room.html:8
+msgid "Chat Room"
+msgstr "Чат"
+
+#: .\templates\chats\chat_room.html:17
+msgid "Type your message here..."
+msgstr "Введите ваше сообщение здесь..."
+
+#: .\templates\chats\chat_room.html:19
+msgid "Send"
+msgstr "Отправить"
+
+#: .\templates\chats\select_user.html:4 .\templates\chats\select_user.html:8
+msgid "Select User for Chat"
+msgstr "Выберите пользователя для чата"
+
+#: .\templates\chats\select_user.html:10
+msgid "Load Users"
+msgstr "Загрузить пользователей"
+
+#: .\templates\chats\select_user.html:22
+msgid "Chat"
+msgstr "Чат"
+
+#: .\templates\newsletter\email\send_newsletter.html:5
+msgid "Read more on"
+msgstr "Читать далее на"
+
+#: .\templates\newsletter\email\send_newsletter.txt:5
+msgid "Read more on Guild Hub"
+msgstr "Читать далее на Guild Hub"
+
+#: .\templates\newsletter\newsletter_actions.html:18
+#: .\templates\newsletter\newsletter_confirm_delete.html:11
+#: .\templates\newsletter\newsletter_delete.html:11
+msgid "Are you sure you want to delete this newsletter?"
+msgstr "Вы уверены, что хотите удалить этот бюллетень?"
+
+#: .\templates\newsletter\newsletter_confirm_delete.html:10
+#: .\templates\newsletter\newsletter_delete.html:5
+#: .\templates\newsletter\newsletter_delete.html:10
+msgid "Delete Newsletter"
+msgstr "Удалить новость"
+
+#: .\templates\newsletter\newsletter_create.html:5
+#: .\templates\newsletter\newsletter_create.html:10
+#: .\templates\newsletter\newsletters.html:13
+msgid "Create Newsletter"
+msgstr "Создать новость"
+
+#: .\templates\newsletter\newsletter_create.html:14
+msgid "Create"
+msgstr "Создать"
+
+#: .\templates\newsletter\newsletter_update.html:5
+#: .\templates\newsletter\newsletter_update.html:10
+msgid "Update Newsletter"
+msgstr "Обновить новость"
+
+#: .\templates\newsletter\newsletter_update.html:14
+msgid "Update"
+msgstr "Обновить"
+
+#: .\templates\newsletter\newsletters.html:39
+msgid "No Newsletters"
+msgstr "Нет новостей"
+
+#: .\templates\response_board\my_responses.html:18
+msgid "Ad:"
+msgstr "Объявление:"
+
+#: .\templates\response_board\my_responses.html:21
+#: .\templates\response_board\response_list.html:38
+msgid "View Ad"
+msgstr "Просмотр объявления"
+
+#: .\templates\response_board\my_responses.html:25
+msgid "Response:"
+msgstr "Отклик:"
+
+#: .\templates\response_board\my_responses.html:37
+msgid "There are no responses from you."
+msgstr "У вас нет откликов."
+
+#: .\templates\response_board\respond_to_ad.html:5
+msgid "Respond to Ad:"
+msgstr "Откликнуться на объявление:"
+
+#: .\templates\response_board\respond_to_ad.html:12
+#: .\templates\response_board\respond_to_ad.html:15
+msgid "Respond to Ad"
+msgstr "Откликнуться на объявление"
+
+#: .\templates\response_board\respond_to_ad.html:18
+msgid "Your Response"
+msgstr "Ваш отклик"
+
+#: .\templates\response_board\respond_to_ad.html:19
+msgid "Write your response here"
+msgstr "Напишите текст вашего отклика здесь"
+
+#: .\templates\response_board\response_board_filter.html:7
+msgid "Filter"
+msgstr "Фильтр"
+
+#: .\templates\response_board\response_list.html:17
+msgid "Accept"
+msgstr "Принять"
+
+#: .\templates\response_board\response_list.html:21
+msgid "Decline"
+msgstr "Отклонить"
+
+#: .\templates\response_board\response_list.html:35
+msgid "Response to the ad:"
+msgstr "Отклик на объявление:"
+
+#: .\templates\response_board\response_list.html:44
+msgid "No responses found."
+msgstr "Откликов не найдено."
+
+#: .\templates\socialaccount\login.html:6
+msgid "Sign In"
+msgstr "Войти"
+
+#: .\templates\socialaccount\login.html:12
+#, python-format
+msgid "Connect %(provider)s"
+msgstr "Подключить %(provider)s"
+
+#: .\templates\socialaccount\login.html:13
+#, python-format
+msgid "You are about to connect a new third-party account from %(provider)s."
+msgstr "Вы собираетесь подключить новую учётную запись от %(provider)s."
+
+#: .\templates\socialaccount\login.html:15
+#, python-format
+msgid "Sign In Via %(provider)s"
+msgstr "Войти через %(provider)s"
+
+#: .\templates\socialaccount\login.html:16
+#, python-format
+msgid "You are about to sign in using a third-party account from %(provider)s."
+msgstr "Вы собираетесь войти, используя учётную запись от %(provider)s."
+
+#: .\templates\socialaccount\login.html:20
+msgid "Continue"
+msgstr "Продолжить"
+
+#: .\templates\socialaccount\signup.html:6
+msgid "Signup"
+msgstr "Регистрация"
+
+#: .\templates\socialaccount\signup.html:12
+#, python-format
+msgid ""
+"You are about to use your %(provider_name)s account to login to "
+"%(site_name)s. As a final step, please complete the following form:"
+msgstr ""
+"Вы собираетесь использовать вашу учётную запись %(provider_name)s для входа "
+"на сайт %(site_name)s. В качестве последнего шага, пожалуйста, заполните "
+"следующую форму:"
+
+#: .\templates\users\user_badge.html:19 .\templates\users\user_detail.html:39
+msgid "age"
+msgstr "возраст"
+
+#: .\templates\users\user_badge.html:20
+msgid "gender"
+msgstr "пол"
+
+#: .\templates\users\user_badge.html:25
+msgid "replied on"
+msgstr "ответил"
+
+#: .\templates\users\user_badge.html:37
+msgid "The profile has been deleted"
+msgstr "Профиль был удалён"
+
+#: .\templates\users\user_deactivate.html:13
+msgid "Confirm Deactivation for"
+msgstr "Подтвердите деактивацию для"
+
+#: .\templates\users\user_deactivate.html:17
+msgid "Deactivate User"
+msgstr "Деактивировать пользователя"
+
+#: .\templates\users\user_detail.html:14
+msgid "Profile photo"
+msgstr "Фото профиля"
+
+#: .\templates\users\user_detail.html:24 .\users\models.py:137
+msgid "banned"
+msgstr "заблокирован"
+
+#: .\templates\users\user_detail.html:27
+msgid "super admin"
+msgstr "супер админ"
+
+#: .\templates\users\user_detail.html:29
+msgid "admin"
+msgstr "администратор"
+
+#: .\templates\users\user_detail.html:31
+msgid "moderator"
+msgstr "модератор"
+
+#: .\templates\users\user_detail.html:35
+msgid "Last visit"
+msgstr "Последнее посещение"
+
+#: .\templates\users\user_detail.html:36 .\users\models.py:47
+msgid "First name"
+msgstr "Имя"
+
+#: .\templates\users\user_detail.html:37 .\users\models.py:54
+msgid "Last name"
+msgstr "Фамилия"
+
+#: .\templates\users\user_detail.html:38 .\users\models.py:79
+msgid "Gender"
+msgstr "Пол"
+
+#: .\templates\users\user_detail.html:39
+msgid "Date of Birth"
+msgstr "Дата рождения"
+
+#: .\templates\users\user_detail.html:40 .\users\models.py:91
+msgid "Phone number"
+msgstr "Номер телефона"
+
+#: .\templates\users\user_detail.html:58
+msgid "About me"
+msgstr "Обо мне"
+
+#: .\templates\users\user_detail.html:65
+msgid "You can add information about yourself. Button"
+msgstr "Вы можете добавить информацию о себе. Кнопка"
+
+#: .\templates\users\user_detail.html:65 .\templates\users\user_detail.html:68
+#: .\templates\users\user_update.html:10
+msgid "Edit Profile"
+msgstr "Редактировать профиль"
+
+#: .\templates\users\user_detail.html:66
+msgid "Due to this, your account will be displayed in the search filter."
+msgstr ""
+"За счёт этого ваш аккаунт можно будет найти с помощью фильтров в поиске."
+
+#: .\templates\users\user_detail.html:69
+msgid "Delete Account"
+msgstr "Удалить аккаунт"
+
+#: .\templates\users\user_update.html:5
+msgid "Edit profile"
+msgstr "Редактировать профиль"
+
+#: .\templates\users\user_update.html:25
+msgid "Save"
+msgstr "Сохранить"
+
+#: .\users\admin.py:23
+msgid "Personal info"
+msgstr "Персональная информация"
+
+#: .\users\admin.py:29
+msgid "Permissions"
+msgstr "Права доступа"
+
+#: .\users\apps.py:8 .\users\models.py:161
+msgid "Users"
+msgstr "Пользователи"
+
+#: .\users\forms.py:26
+msgid "Confirm deactivation and delete"
+msgstr "Подтвердите деактивацию и удаление"
+
+#: .\users\models.py:16
+msgid "The Email field must be set"
+msgstr "Поле Email должно быть заполнено"
+
+#: .\users\models.py:18
+msgid "The Password field must be set"
+msgstr "Поле пароль должно быть заполнено"
+
+#: .\users\models.py:41
+msgid "Enter your email"
+msgstr "Введите ваш email"
+
+#: .\users\models.py:48
+msgid "Enter your first name"
+msgstr "Введите ваше имя"
+
+#: .\users\models.py:55
+msgid "Enter your last name"
+msgstr "Введите вашу фамилию"
+
+#: .\users\models.py:60
+msgid "Enter your nickname in the game"
+msgstr "Введите ваш ник в игре"
+
+#: .\users\models.py:66
+msgid "Avatar"
+msgstr "Аватар"
+
+#: .\users\models.py:70
+msgid "Male"
+msgstr "Мужской"
+
+#: .\users\models.py:71
+msgid "Female"
+msgstr "Женский"
+
+#: .\users\models.py:72
+msgid "Other"
+msgstr "Другой"
+
+#: .\users\models.py:84
+msgid "Date of birth"
+msgstr "Дата рождения"
+
+#: .\users\models.py:85
+msgid "Enter your date of birth"
+msgstr "Введите вашу дату рождения"
+
+#: .\users\models.py:92
+msgid "Enter your phone number"
+msgstr "Введите ваш номер телефона"
+
+#: .\users\models.py:98
+msgid "Your Discord account"
+msgstr "Ваш аккаунт Discord"
+
+#: .\users\models.py:99
+msgid "Enter your Discord nickname"
+msgstr "Введите ваш ник Discord"
+
+#: .\users\models.py:105
+msgid "Your Steam account"
+msgstr "Ваш аккаунт Steam"
+
+#: .\users\models.py:106
+msgid "Enter your Steam profile URL"
+msgstr "Введите URL вашего профиля Steam"
+
+#: .\users\models.py:112
+msgid "Your telegram nickname"
+msgstr "Ваш ник в Telegram"
+
+#: .\users\models.py:113
+msgid ""
+"Specify the nickname \"telegram\". Only letters from A to Z, numbers 0-9, _. "
+"Example: QweRty_123"
+msgstr ""
+"Укажите ник \"telegram\". Только буквы от A до Z, цифры от 0 до 9, _. "
+"Пример: QweRty_123"
+
+#: .\users\models.py:119
+msgid "About Me"
+msgstr "Обо мне"
+
+#: .\users\models.py:120
+msgid "Enter your about me here"
+msgstr "Введите информацию о себе здесь"
+
+#: .\users\models.py:124
+msgid "active"
+msgstr "активный"
+
+#: .\users\models.py:127
+msgid ""
+"Designates whether this user should be treated as active. Unselect this "
+"instead of deleting accounts."
+msgstr ""
+"Определяет, должен ли этот пользователь считаться активным. Снимите это, "
+"чтобы не удалять аккаунты."
+
+#: .\users\models.py:132
+msgid "staff status"
+msgstr "статус персонала"
+
+#: .\users\models.py:134
+msgid "Designates whether the user can log into this admin site."
+msgstr "Определяет, может ли пользователь войти на этот сайт администратора."
+
+#: .\users\models.py:139
+msgid "Designates whether this user should be treated as banned."
+msgstr "Определяет, должен ли этот пользователь считаться заблокированным."
+
+#: .\users\models.py:145
+msgid "Reason for ban"
+msgstr "Причина блокировки"
+
+#: .\users\models.py:146
+msgid "Enter the reason for the ban"
+msgstr "Введите причину блокировки"
+
+#: .\users\models.py:148
+msgid "date joined"
+msgstr "дата регистрации"
+
+#: .\users\models.py:186
+msgid "Age"
+msgstr "Возраст"

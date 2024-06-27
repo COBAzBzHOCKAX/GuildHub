@@ -1,20 +1,22 @@
 import logging
 from datetime import timedelta
 
+from django.contrib.auth import get_user_model
 from django.urls import reverse
 
-from config import settings
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django_quill.fields import QuillField
+
+User = get_user_model()
 
 
 class Ad(models.Model):
     title = models.CharField(max_length=255, verbose_name=_('Title'), help_text=_('Enter your title here'))
     text = QuillField(verbose_name=_('Text'), help_text=_('Enter your text here'))
     category = models.ForeignKey('Category', on_delete=models.CASCADE, verbose_name=_('Category'))
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name=_('User'))
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_('User'))
     is_published = models.BooleanField(default=False, verbose_name=_('Is published'))
     date_published = models.DateTimeField(null=True, blank=True, verbose_name=_('Date of publication'))
     date_creation = models.DateTimeField(auto_now_add=True, verbose_name=_('Date of creation'))

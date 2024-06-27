@@ -76,9 +76,13 @@ class AdDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['request'] = self.request
         ad = self.get_object()
-        context['responded'] = Response.objects.filter(ad=ad, author=self.request.user).exists()
+
+        if self.request.user.is_authenticated:
+            context['responded'] = Response.objects.filter(ad=ad, author=self.request.user).exists()
+        else:
+            context['responded'] = False
+
         context['responses'] = Response.objects.filter(ad=ad)
         return context
 

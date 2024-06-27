@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load allauth %}
+
+{% block title %}
+    {% trans "Signup" %}
+{% endblock title %}
+
+{% block content %}
+    <div class="container">
+        <h1>{% trans "Sign Up" %}</h1>
+        <p>{% blocktrans with provider_name=account.get_provider.name site_name=site.name %}You are about to use your {{provider_name}} account to login to {{site_name}}. As a final step, please complete the following form:{% endblocktrans %}</p>
+        {% url 'socialaccount_signup' as action_url %}
+        <form method="post" action="{{ action_url }}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            {{ redirect_field }}
+            <button type="submit" class="btn btn-primary">{% trans "Sign Up" %}</button>
+        </form>
+    </div>
+{% endblock content %}
