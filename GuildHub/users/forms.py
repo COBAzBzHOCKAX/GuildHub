@@ -14,6 +14,7 @@ class UserForm(forms.ModelForm):
             'last_name',
             'gender',
             'date_birth',
+            'user_timezone',
             'phone_number',
             'about_me',
             'discord_url_profile',

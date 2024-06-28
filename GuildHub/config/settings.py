@@ -93,6 +93,8 @@ MIDDLEWARE = [
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'allauth.account.middleware.AccountMiddleware',  # Allauth
     'users.middleware.RequireNicknameMiddleware',
+
+    'users.middleware.TimezoneMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'

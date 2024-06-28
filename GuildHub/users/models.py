@@ -1,6 +1,7 @@
 import datetime
 import re
 
+import pytz
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.core.mail import send_mail
@@ -119,6 +120,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name=_('About Me'),
         help_text=_('Enter your about me here')
     )
+    user_timezone = models.CharField(max_length=63, choices=[(tz, tz) for tz in pytz.all_timezones], default='UTC')
     last_time_visit = models.DateTimeField(default=timezone.now)
     is_active = models.BooleanField(
         _("active"),
