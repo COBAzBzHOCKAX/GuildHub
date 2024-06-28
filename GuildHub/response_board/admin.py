@@ -1,6 +1,11 @@
 from django.contrib import admin
+from modeltranslation.admin import TranslationAdmin
 
 from .models import Response
+
+
+class ResponseTranslation(TranslationAdmin):
+    model = Response
 
 
 @admin.register(Response)

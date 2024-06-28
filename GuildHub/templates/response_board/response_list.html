@@ -1,0 +1,45 @@
+{% load i18n %}
+
+{% for response in responses %}
+    <div class="card mt-3">
+        <div class="card-body">
+            {% include 'users/user_badge.html' with user=response.author response=response %}
+            <p class="card-text">{{ response.text }}</p>
+            {% if response.status == 'PEN' %}
+                <hr>
+                <div class="row">
+                    <div class="col-12 text-left">
+                        <small>Select an action:</small>
+                    </div>
+                    <div class="col-4 d-flex ">
+                        <form action="{% url 'accept_response' response.pk %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-success mr-2">{% trans "Accept" %}</button>
+                        </form>
+                        <form action="{% url 'decline_response' response.pk %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">{% trans "Decline" %}</button>
+                        </form>
+                    </div>
+                </div>
+            {% elif response.status == 'ACC' %}
+                <p class="text-success">{% trans "Accepted" %}</p>
+            {% elif response.status == 'DEC' %}
+                <p class="text-danger">{% trans "Declined" %}</p>
+            {% endif %}
+
+            {% if not ad_detail == True %}
+                <br>
+                <hr>
+                <div class="mb-3">
+                    <h5 class="card-title">{% trans 'Response to the ad:' %}</h5>
+                    <h5 class="card-title">{{ response.ad.title }}</h5>
+                    <p class="card-text">{{ response.ad.text.html | truncatechars_html:60 | truncatewords_html:5 | safe }}</p>
+                    <a href="{% url 'ad_detail' response.ad.pk %}">{% trans 'View Ad' %}</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% empty %}
+    <p>{% trans "No responses found." %}</p>
+{% endfor %}

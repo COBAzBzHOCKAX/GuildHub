@@ -1,0 +1,48 @@
+{% load i18n %}
+{% load custom_tags %}
+
+<div id="filter-form-container" style="display: none;">
+    <form method="get">
+        {{ filter.form.as_p }}
+        <button type="submit" class="btn btn-primary">{% trans "Filter" %}</button>
+    </form>
+</div>
+
+<a id="toggle-filter-form" type="button" onclick="toggleFilterForm()">
+    {% trans 'Toggle Filter' %}
+</a>
+
+{% if filter.data and filter.is_bound and filter.form.is_valid %}
+    {% with applied_filters=False %}
+        <div id="applied-filters">
+            {% trans 'Applied Filters:' %}
+            <ul>
+                {% for key, value in filter.data.items %}
+                    {% if value and key != 'page' %}
+                        {% with applied_filters=True %}
+                            {% if key == 'status' %}
+                                <li>{% trans 'Status' %}: {{ value }}</li>
+                            {% elif key == 'start_date_creation' %}
+                                <li>{% trans 'Replied on start Date' %}: {{ value }}</li>
+                            {% elif key == 'end_date_creation' %}
+                                <li>{% trans 'Replied on end Date' %}: {{ value }}</li>
+                            {% elif key == 'ad_title' %}
+                                <li>{% trans 'Ad Title' %} id: {{ value }}</li>
+                            {% endif %}
+                        {% endwith %}
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <a id="clear-filter" href="{% url clear_filter_url %}">
+                {% trans 'Clear Filter' %}
+            </a>
+        </div>
+    {% endwith %}
+{% endif %}
+
+<script>
+    function toggleFilterForm() {
+        var formContainer = document.getElementById('filter-form-container');
+        formContainer.style.display = (formContainer.style.display === 'none') ? 'block' : 'none';
+    }
+</script>

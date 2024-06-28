@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Chat List" %}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="my-4">{% trans "Chat List" %}</h2>
+    <ul class="list-group">
+        {% for chat in chats %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    {% for participant in chat.participants.all %}
+                        {{ participant.nickname }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </div>
+                <a class="btn btn-primary" href="{% url 'chat-room' chat.id %}">{% trans "Go to chat" %}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

@@ -23,7 +23,7 @@ class CustomUserAdmin(UserAdmin):
         (_('Personal info'), {
             'fields': (
                 'avatar', 'nickname', 'first_name', 'last_name', 'gender', 'date_birth', 'phone_number',
-                'discord_url_profile', 'about_me'
+                'discord_url_profile', 'steam_url_profile', 'telegram_nickname', 'about_me'
             )
         }),
         (_('Permissions'), {
@@ -33,8 +33,9 @@ class CustomUserAdmin(UserAdmin):
                 'is_superuser',
                 'is_banned',
                 'banned_until',
-                "groups",
-                "user_permissions",
+                'reason_ban',
+                'groups',
+                'user_permissions',
             )
         }),
     )

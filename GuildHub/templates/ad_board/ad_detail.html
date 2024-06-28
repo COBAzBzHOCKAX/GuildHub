@@ -13,8 +13,19 @@
             {% include 'ad_board/ad_actions.html' with ad=ad %}
         {% endif %}
         
-        <p class="category">{% trans 'Category' %}: {{ ad.category.category_name }}
+        <p class="category">{% trans 'Category' %}: {{ ad.category.category_name }}</p>
         <p class="ad-text">{{ ad.text.html | safe }}</p>
-        {% include 'ad_board/response_button.html' with user=ad.user %}
+        {% include 'ad_board/response_button.html' with ad=ad %}
+        
+        <!-- Mini ad board -->
+        {% if request.user.is_authenticated and request.user == ad.user %}
+            <br>
+            <br>
+            <hr>
+            <h3>{% trans "Responses to your ad" %}</h3>
+            {% if request.user.is_authenticated %}
+                {% include 'response_board/response_list.html' with ad_detail=True %}
+            {% endif %}
+        {% endif %}
     </div>
 {% endblock content %}

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Select User for Chat" %}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="my-4">{% trans "Select User for Chat" %}</h2>
+    <div id="user-list" class="list-group"></div>
+    <button class="btn btn-primary" onclick="fetchUsers()">{% trans "Load Users" %}</button>
+
+    <script>
+        function fetchUsers() {
+            fetch('/api/users/')
+                .then(response => response.json())
+                .then(data => {
+                    $('#user-list').empty();
+                    data.forEach(user => {
+                        $('#user-list').append(`
+                            <div class="list-group-item d-flex justify-content-between align-items-center">
+                                ${user.nickname}
+                                <button class="btn btn-primary" onclick="startChat('${user.nickname}')">{% trans "Chat" %}</button>
+                            </div>
+                        `);
+                    });
+                })
+                .catch(error => console.error('Error fetching users:', error));
+        }
+
+        function startChat(nickname) {
+            fetch('/api/chats/create-or-get/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({ username: nickname })
+            })
+            .then(response => response.json())
+            .then(data => {
+                window.location.href = `/chat/${data.id}/`;
+            })
+            .catch(error => console.error('Error starting chat:', error));
+        }
+    </script>
+</div>
+{% endblock %}

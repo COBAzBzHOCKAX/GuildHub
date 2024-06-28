@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}
+    {% trans 'Respond to Ad:' %} {% if ad.title %} - {{ ad.title }}{% endif %}
+{% endblock title %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans 'Respond to Ad' %}</title>
+</head>
+<div class="container">
+    <h1>{% trans 'Respond to Ad' %}</h1>
+    <form action="{% url 'respond_to_ad' ad.id %}" method="post">
+        {% csrf_token %}
+        <label for="response_text">{% trans 'Your Response' %}:</label><br>
+        <textarea id="response_text" name="response_text" rows="4" cols="50" placeholder="{% trans 'Write your response here' %}" maxlength="1000"></textarea><br><br>
+        <input type="submit" value="{% trans 'Response' %}">
+    </form>
+</div>
+{% endblock content %}

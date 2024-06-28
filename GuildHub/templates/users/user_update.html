@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}
+    {% trans 'Edit profile' %}
+{% endblock title %}
+
+{% block content %}
+    <div class="container">
+        <h2>{% trans 'Edit Profile' %} {{ user.nickname }}</h2>
+        <form method="post" enctype="multipart/form-data" class="profile-edit-form">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.help_text %}
+                        <small class="form-text text-muted">{{ field.help_text }}</small>
+                    {% endif %}
+                    {% for error in field.errors %}
+                        <div class="alert alert-danger">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary">{% trans 'Save' %}</button>
+        </form>
+    </div>
+{% endblock content %}
+
+{% block styles %}
+<style>
+    .profile-edit-form {
+        max-width: 600px;
+        margin: auto;
+        padding: 20px;
+        background: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+    .profile-edit-form .btn {
+        display: block;
+        width: 100%;
+        margin-top: 20px;
+    }
+    .profile-edit-form .form-group {
+        margin-bottom: 15px;
+    }
+    .profile-edit-form .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+    .profile-edit-form .form-group input, 
+    .profile-edit-form .form-group textarea, 
+    .profile-edit-form .form-group select {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+    .profile-edit-form .form-text {
+        font-size: 0.875em;
+        color: #6c757d;
+        margin-top: 2px; /* уменьшено расстояние */
+    }
+    .profile-edit-form .alert {
+        margin-top: 5px;
+        font-size: 0.875em;
+    }
+</style>
+{% endblock styles %}

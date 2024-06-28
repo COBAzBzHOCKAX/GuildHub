@@ -14,8 +14,8 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-
 load_dotenv()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -61,21 +61,21 @@ INSTALLED_APPS = [
     # Social account providers
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.yandex',
-    'allauth.socialaccount.providers.steam',
     'allauth.socialaccount.providers.telegram',
     'allauth.socialaccount.providers.discord',
     'allauth.socialaccount.providers.vk',
     'allauth.socialaccount.providers.facebook',
-    'allauth.socialaccount.providers.apple',
-    'allauth.socialaccount.providers.twitter_oauth2',
-    'allauth.socialaccount.providers.linkedin_oauth2',
-    'allauth.socialaccount.providers.github',
+
+    # Rest framework
+    'rest_framework',
 
     # Custom apps
     'ad_board',
     'newsletter',
     'response_board',
-    'users'
+    'users',
+    'chats',
+    'common',  # Files used by multiple applications, such as custom_tags
 ]
 
 SITE_ID = 1
@@ -92,6 +92,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'allauth.account.middleware.AccountMiddleware',  # Allauth
+    'users.middleware.RequireNicknameMiddleware',
+
+    'users.middleware.TimezoneMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -108,7 +111,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.request',  # Needed by allauth
-                'config.context_processors.current_user'
+                'config.context_processors.current_user',
             ],
         },
     },
@@ -116,6 +119,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.TemplateHTMLRenderer',
+    ),
+}
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -126,6 +135,12 @@ DATABASES = {
     }
 }
 
+# Celery settings
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -157,13 +172,17 @@ ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_ADAPTER = 'users.adapters.AccountAdapter'
+ACCOUNT_SIGNUP_REDIRECT_URL = 'profile_update'
 ACCOUNT_CHANGE_EMAIL = True
 ACCOUNT_EMAIL_NOTIFICATIONS = True
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_LOGIN_BY_CODE_TIMEOUT = 300
-LOGIN_REDIRECT_URL = ''
+LOGIN_REDIRECT_URL = 'ad_board'
+LOGOUT_REDIRECT_URL = 'ad_board'
 
+# Email settings
 EMAIL_HOST = 'smtp.mail.ru'
 EMAIL_PORT = 2525
 EMAIL_HOST_USER = os.getenv('HOST_EMAIL_MAIL_RU')
@@ -173,7 +192,7 @@ EMAIL_USE_SSL = False
 ADMINS = os.getenv('ADMINS')
 DEFAULT_FROM_EMAIL = os.getenv('HOST_EMAIL_MAIL_RU')
 SERVER_EMAIL = 'HOST_EMAIL_MAIL_RU'
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
@@ -188,6 +207,10 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale')
+]
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 STATIC_URL = 'static/'
@@ -195,9 +218,55 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
 
-LOCALE_PATHS = [
-    os.path.join(BASE_DIR, 'locale')
-]
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'detailed': {
+            'format': '[{asctime}] "{name}" - {levelname}: {message}',
+            'style': '{',
+            'datefmt': '%d/%b/%Y %H:%M:%S',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'detailed',
+        },
+    },
+    'loggers': {
+        'ad_board': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'response_board': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'users': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'chats': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'newsletter': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'common': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+    },
+}
 
 QUILL_CONFIGS = {
     'default': {

@@ -24,4 +24,16 @@
             <button type="submit" class="btn btn-primary">{% trans 'Submit' %}</button>
         </form>
     </div>
+    <style>
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        form .form-group {
+            margin-bottom: 1rem;
+        }
+        form .btn {
+            align-self: flex-start;
+        }
+    </style>
 {% endblock content %}

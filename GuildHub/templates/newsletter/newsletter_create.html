@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}
+    {% trans 'Create Newsletter' %}
+{% endblock title %}
+
+{% block content %}
+    <div class="container mt-4 mb-4">
+        <h2>{% trans 'Create Newsletter' %}</h2>
+        <form method="post" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">{% trans 'Create' %}</button>
+        </form>
+    </div>
+    <style>
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        form .form-group {
+            margin-bottom: 1rem;
+        }
+        form .btn {
+            align-self: flex-start;
+        }
+    </style>
+{% endblock content %}

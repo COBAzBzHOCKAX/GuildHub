@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+
+{% block title %}{% trans "Response board" %}{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {% include 'response_board/response_board_filter.html' with clear_filter_url='respond_board' %}
+    
+        {% include 'pagination.html' %}
+        
+        <h1>{% trans "Response board" %}</h1>
+        
+        {% include 'response_board/response_list.html' %}
+    
+        {% include 'pagination.html' %}
+    </div>
+{% endblock %}

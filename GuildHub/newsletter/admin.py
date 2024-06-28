@@ -1,7 +1,12 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
+from modeltranslation.admin import TranslationAdmin
 
 from .models import Newsletter
+
+
+class NewsletterTranslation(TranslationAdmin):
+    model = Newsletter
 
 
 @admin.register(Newsletter)

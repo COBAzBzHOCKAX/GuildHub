@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}
+    {% trans 'Update Newsletter' %}
+{% endblock title %}
+
+{% block content %}
+    <div class="container">
+        <h2>{% trans 'Update Newsletter' %}: '{{ newsletter.title }}'</h2>
+        <form method="post" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">{% trans 'Update' %}</button>
+        </form>
+    </div>
+{% endblock content %}

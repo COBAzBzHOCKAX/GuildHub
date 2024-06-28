@@ -3,15 +3,17 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect
 from django.views.decorators.http import require_POST
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.utils.translation import gettext as _
 from django.contrib import messages
 
-from .filters import AdFilter
+from response_board.models import Response
+from .filters import AdFilter, MyAdsFilter
 from .forms import AdForm
 from .models import Ad
 
-PAGINATE_BY = 2
+
+PAGINATE_BY = 10
 
 
 class AdBoardView(ListView):
@@ -22,13 +24,48 @@ class AdBoardView(ListView):
     paginate_by = PAGINATE_BY
 
     def get_queryset(self):
-        queryset = super().get_queryset()
+        queryset = super().get_queryset().filter(is_published=True)
         self.filterset = AdFilter(self.request.GET, queryset)
         return self.filterset.qs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['filterset'] = self.filterset
+
+        ad_list = context['ad_list']
+        for ad in ad_list:
+            if self.request.user.is_authenticated:
+                ad.responded = Response.objects.filter(ad=ad, author=self.request.user).exists()
+            else:
+                ad.responded = False
+
+        return context
+
+
+class MyAdsView(LoginRequiredMixin, ListView):
+    model = Ad
+    ordering = ['date_creation']
+    template_name = 'ad_board/ad_board.html'
+    context_object_name = 'ad_list'
+    paginate_by = PAGINATE_BY
+
+    def get_queryset(self):
+        queryset = super().get_queryset().filter(user=self.request.user)
+        self.filterset = MyAdsFilter(self.request.GET, queryset)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filterset'] = self.filterset
+        context['my_ads'] = True
+
+        ad_list = context['ad_list']
+        for ad in ad_list:
+            if self.request.user.is_authenticated:
+                ad.responded = Response.objects.filter(ad=ad, author=self.request.user).exists()
+            else:
+                ad.responded = False
+
         return context
 
 
@@ -39,7 +76,14 @@ class AdDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['request'] = self.request
+        ad = self.get_object()
+
+        if self.request.user.is_authenticated:
+            context['responded'] = Response.objects.filter(ad=ad, author=self.request.user).exists()
+        else:
+            context['responded'] = False
+
+        context['responses'] = Response.objects.filter(ad=ad)
         return context
 
     def get_object(self, queryset=None):
@@ -79,12 +123,6 @@ class AdUpdateView(LoginRequiredMixin, UpdateView):
         return super().form_valid(form)
 
 
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, redirect
-from django.contrib import messages
-from django.utils.translation import gettext as _
-from .models import Ad
-
 @login_required
 def ad_delete(request, pk):
     ad = get_object_or_404(Ad, pk=pk)
@@ -95,7 +133,6 @@ def ad_delete(request, pk):
     else:
         messages.error(request, _('You do not have permission to delete this ad.'))
         return redirect('ad_detail', pk=pk)
-
 
 
 @login_required

@@ -1,7 +1,16 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
+from modeltranslation.admin import TranslationAdmin
 
 from .models import Ad, Category
+
+
+class AdTranslation(TranslationAdmin):
+    model = Ad
+
+
+class CategoryTranslation(TranslationAdmin):
+    model = Category
 
 
 @admin.register(Ad)

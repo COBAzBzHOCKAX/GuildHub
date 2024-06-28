@@ -1,0 +1,5 @@
+{% load i18n %}
+
+{{ newsletter.title }}
+{{ newsletter.text.html | striptags }}
+{% trans 'Read more on Guild Hub' %} {{ site_url }}{% url 'newsletter_detail' newsletter.id %}

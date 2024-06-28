@@ -8453,3 +8453,22 @@ img {
 .dark-mode .footer a:hover {
     color: #cccccc;
 }
+
+.badge {
+    background-color: #007bff;
+    color: white;
+    padding: 3px 10px;
+    border-radius: 5px;
+}
+.badge-moderator {
+background-color: #007bff;
+}
+.badge-danger {
+background-color: #dc3545;
+}
+.badge-superadmin {
+background-color: #ff5733;
+}
+.badge-admin {
+background-color: #28a745;
+}
