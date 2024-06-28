@@ -78,9 +78,8 @@ python manage.py migrate
 
 #### Создайте первого суперпользователя
 ```bash
-python manage.py createsuperuser
+python manage.py createsuperuser  # следуйте инструкциям
 ```
-следуйте инструкциям.
 
 #### Запуск Django сервера
 ```bash
@@ -91,7 +90,7 @@ python manage.py runserver
 ```bash
 celery -A config worker -l INFO
 ```
-**На Windows данная команда может не сработать!**
+**На Windows данная команда может не сработать!**\
 Используйте следующую команду:
 ```shell
 celery -A config worker -l INFO --pool solo
@@ -110,6 +109,6 @@ celery -A config worker -l INFO --pool solo
 Проект распространяется под свободной лицензией (MIT).
 
 ### Авторы
-Автор проекта: COBA_B_HOCKAX (Данила)
-GitHub: https://github.com/COBAzBzHOCKAX
+Автор проекта: COBA_B_HOCKAX (Данила)\
+GitHub: https://github.com/COBAzBzHOCKAX \
 Telegram: https://t.me/COBA_B_HOCKAX

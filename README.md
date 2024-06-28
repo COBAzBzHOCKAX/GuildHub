@@ -68,6 +68,11 @@ cd GuildHub
 python manage.py migrate
 ```
 
+#### Create the first superuser
+```bash
+python manage.py createsuperuser  # follow the instructions
+```
+
 #### Run the Django server:
 ```bash
 python manage.py runserver
@@ -77,7 +82,7 @@ python manage.py runserver
 ```bash
 celery -A config worker -l INFO
 ```
-**This command may not work on Windows!**
+**This command may not work on Windows!**\
 Use the following command:
 ```shell
 celery -A config worker -l INFO --pool solo
@@ -96,6 +101,6 @@ This project was created solely for educational purposes, and further developmen
 This project is licensed under the terms of the MIT License.
 
 ### Authors
-Project Author: COBA_B_HOCKAX (Danila)
-GitHub: https://github.com/COBAzBzHOCKAX
+Project Author: COBA_B_HOCKAX (Danila)\
+GitHub: https://github.com/COBAzBzHOCKAX \
 Telegram: https://t.me/COBA_B_HOCKAX
