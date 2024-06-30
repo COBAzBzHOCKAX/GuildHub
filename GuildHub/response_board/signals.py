@@ -13,6 +13,7 @@ def create_response(sender, instance, created, **kwargs):
     logger.debug(f'launching. created = {created}')
 
     if created:
+        # Send notification
         send_ad_response_notification.delay(instance.pk)
     else:
         logger.debug(f'Response with ID {instance.pk} already exists.')
@@ -29,6 +30,7 @@ def update_response(sender, instance, **kwargs):
         logger.error(f'Response with ID {instance.pk} does not exist.')
         return
 
+    # Send notification if status changed to 'ACC'
     if old_status != instance.status and instance.status == 'ACC':
         send_response_accepted_notification.delay(instance.pk)
 
