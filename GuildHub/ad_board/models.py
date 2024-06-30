@@ -54,7 +54,7 @@ class Ad(models.Model):
                 return True
 
             logger.debug(f'Ad {self.id} was posted more than 30 days ago. \n'
-                         f'It was published at {(self.date_published).strftime('%Y-%m-%d %H:%M:%S')}.\n')
+                         f'It was published at {(self.date_published).strftime("%Y-%m-%d %H:%M:%S")}.\n')
         else:
             logger.debug(f'Ad {self.id} has no publication date')
 
