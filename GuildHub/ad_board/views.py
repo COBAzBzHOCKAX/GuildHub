@@ -24,7 +24,7 @@ class AdBoardView(ListView):
     paginate_by = PAGINATE_BY
 
     def get_queryset(self):
-        queryset = super().get_queryset().filter(is_published=True)
+        queryset = super().get_queryset().filter(is_published=True, user__is_active=True, user__is_banned=False)
         self.filterset = AdFilter(self.request.GET, queryset)
         return self.filterset.qs
 

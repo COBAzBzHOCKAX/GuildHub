@@ -48,9 +48,9 @@ class UserDeactivateView(LoginRequiredMixin, UserOwnerOrAdminMixin, FormMixin, V
         if form.is_valid():
             user.is_active = False
             user.save()
-            return JsonResponse({'status': 'success', 'message': 'User deactivated successfully.'})
+            return reverse_lazy('newsletters')
         else:
-            return JsonResponse({'status': 'error', 'errors': form.errors}, status=400)
+            return reverse_lazy('newsletters')
 
     def get(self, request, *args, **kwargs):
         user = self.get_object()
