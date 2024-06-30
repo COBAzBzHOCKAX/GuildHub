@@ -66,6 +66,10 @@ class Ad(models.Model):
 
         If the advertisement is marked as published (`is_published` is True) and `date_published`
         is not set, this method sets `date_published` to the current time in UTC (`timezone.now()`).
+
+        This method ensures that advertisements are not artificially pushed to the top of the ad board
+        by re-publishing them within 30 days. Ads can only be republished and thus moved to the top of the
+        list after 30 days.
         """
         logger = logging.getLogger('ad_board.models.Ad.date_of_publication')
         logger.debug('launching')
@@ -119,22 +123,27 @@ class Ad(models.Model):
         logger = logging.getLogger('ad_board.models.Ad.can_view')
         logger.debug('launching')
 
+        # Check if the ad is published
         if self.is_published:
             logger.debug(f'Ad {self.id} is published\n')
             return True
 
+        # Check if the ad is owned by the user
         if user.is_authenticated and user == self.user:
             logger.debug(f'Ad {self.id} is owned by {user}\n')
             return True
 
+        # Check if the user has permission to view unpublished ads
         if user.is_staff:
             logger.debug(f'User {user} is staff\n')
             return True
 
+        # Check if the user has permission to view unpublished ads
         if user.is_superuser:
             logger.debug(f'User {user} is superuser\n')
             return True
 
+        # Check if the user has permission to view unpublished ads
         if user.has_perm('ad_board.view_unpublished_ad'):
             logger.debug(f'User {user} has view_unpublished_ad permission\n')
             return True
