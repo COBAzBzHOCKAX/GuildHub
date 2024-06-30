@@ -1,14 +1,15 @@
-import pytz
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.deprecation import MiddlewareMixin
+import pytz
 
 
 class RequireNicknameMiddleware(MiddlewareMixin):
     """
     If user is not authenticated and has no nickname, redirect to profile update.
     """
+
     def process_request(self, request):
         user = request.user
 

@@ -1,11 +1,11 @@
 import logging
 
 from celery import shared_task
+from common.utils import send_email
 from django.contrib.auth import get_user_model
 from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
 
-from common.utils import send_email
 from .models import Newsletter
 
 User = get_user_model()

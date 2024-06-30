@@ -1,10 +1,9 @@
 from django.contrib.auth import get_user_model
+from django.db import models
 from django.urls import reverse
 from django.utils import timezone
-from django_quill.fields import QuillField
-
-from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django_quill.fields import QuillField
 
 User = get_user_model()
 
@@ -15,7 +14,11 @@ class Newsletter(models.Model):
     text = QuillField(verbose_name=_('Text'), help_text=_('Enter your text here'))
     date_creation = models.DateTimeField(auto_now_add=True, verbose_name=_('Date of creation'))
     is_published = models.BooleanField(default=False, verbose_name=_('Is published'))
-    is_sent_email= models.BooleanField(default=False, verbose_name=_('Email sent'), help_text="Indicates whether the newsletter has been sent to users via email.")
+    is_sent_email = models.BooleanField(
+        default=False,
+        verbose_name=_('Email sent'),
+        help_text="Indicates whether the newsletter has been sent to users via email."
+    )
 
     class Meta:
         verbose_name = _('Newsletter')

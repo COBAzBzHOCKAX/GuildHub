@@ -1,10 +1,9 @@
-import logging
 from datetime import timedelta
+import logging
 
 from django.contrib.auth import get_user_model
-from django.urls import reverse
-
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django_quill.fields import QuillField
@@ -46,7 +45,7 @@ class Ad(models.Model):
             bool: True if the advertisement was published within the last 30 days, False otherwise.
         """
         logger = logging.getLogger('ad_board.models.Ad.published_within_the_last_30_days')
-        logger.debug(f'launching')
+        logger.debug('launching')
 
         if self.date_published:
             if timezone.now() - self.date_published <= timedelta(days=30):
@@ -54,7 +53,7 @@ class Ad(models.Model):
                              f'It was published at {(self.date_published).strftime("%Y-%m-%d %H:%M:%S")}.\n')
                 return True
 
-            logger.debug(f'Ad {self.id } was posted more than 30 days ago. \n'
+            logger.debug(f'Ad {self.id} was posted more than 30 days ago. \n'
                          f'It was published at {(self.date_published).strftime('%Y-%m-%d %H:%M:%S')}.\n')
         else:
             logger.debug(f'Ad {self.id} has no publication date')
@@ -69,7 +68,7 @@ class Ad(models.Model):
         is not set, this method sets `date_published` to the current time in UTC (`timezone.now()`).
         """
         logger = logging.getLogger('ad_board.models.Ad.date_of_publication')
-        logger.debug(f'launching')
+        logger.debug('launching')
 
         if self.is_published and not self.published_within_the_last_30_days():
             self.date_published = timezone.now()
@@ -83,7 +82,7 @@ class Ad(models.Model):
     def publish_ad(self):
         """Publish the advertisement."""
         logger = logging.getLogger('ad_board.models.Ad.publish_ad')
-        logger.debug(f'launching')
+        logger.debug('launching')
 
         self.is_published = True
         self.date_of_publication()
@@ -93,7 +92,7 @@ class Ad(models.Model):
     def unpublish_ad(self):
         """Unpublish the advertisement."""
         logger = logging.getLogger('ad_board.models.Ad.unpublish_ad')
-        logger.debug(f'launching')
+        logger.debug('launching')
 
         self.is_published = False
         self.save()
@@ -118,7 +117,7 @@ class Ad(models.Model):
     def can_view(self, user):
         """Check if user can view the ad."""
         logger = logging.getLogger('ad_board.models.Ad.can_view')
-        logger.debug(f'launching')
+        logger.debug('launching')
 
         if self.is_published:
             logger.debug(f'Ad {self.id} is published\n')

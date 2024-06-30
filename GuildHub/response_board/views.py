@@ -1,15 +1,15 @@
+from ad_board.models import Ad
+from chats.views import CreateOrGetChat
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import gettext as _
 from django.views.generic import ListView
 from rest_framework import status
 from rest_framework.decorators import api_view
-
-from ad_board.models import Ad
-from chats.views import CreateOrGetChat
 from users.mixins import user_is_not_banned, UserIsNotBannedMixin
+
 from .filters import ResponseFilter
 from .mixins import user_is_ad_owner
 from .models import Response
@@ -25,8 +25,8 @@ class ResponseBoardView(LoginRequiredMixin, UserIsNotBannedMixin, ListView):
     paginate_by = PAGINATE_BY
 
     def get_queryset(self):
-        queryset = (Response.objects.filter(ad__user=self.request.user).order_by('-date_creation') \
-                                    .select_related('ad', 'author'))
+        queryset = (Response.objects.filter(ad__user=self.request.user).order_by('-date_creation')
+                    .select_related('ad', 'author'))
         self.filterset = ResponseFilter(self.request.GET, queryset=queryset, user=self.request.user)
         return self.filterset.qs
 
@@ -91,8 +91,8 @@ def accept_response(request, pk):
 
         # Иначе извлекаем данные из JSON-ответа
         response_data = chat_creation_response.data
-        chat_id = response_data.get('chat_id')
-        created = response_data.get('created')
+        chat_id = response_data.get('chat_id')  # noqa F841
+        created = response_data.get('created')  # noqa F841
 
         messages.success(request._request, _('Response has been accepted.'))
         return redirect('respond_board')  # Редирект после успешного принятия

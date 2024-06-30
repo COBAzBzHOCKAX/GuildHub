@@ -1,5 +1,3 @@
-from django.utils import timezone
-
 from config.settings import SITE_URL
 
 

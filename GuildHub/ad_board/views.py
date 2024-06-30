@@ -1,13 +1,13 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect
-from django.views.decorators.http import require_POST
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.utils.translation import gettext as _
-from django.contrib import messages
-
+from django.views.decorators.http import require_POST
+from django.views.generic import CreateView, DetailView, ListView, UpdateView
 from response_board.models import Response
+
 from .filters import AdFilter, MyAdsFilter
 from .forms import AdForm
 from .models import Ad

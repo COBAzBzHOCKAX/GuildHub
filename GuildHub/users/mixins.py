@@ -1,9 +1,8 @@
 from functools import wraps
 
-from django.contrib.auth.mixins import UserPassesTestMixin, AccessMixin
+from django.contrib.auth.mixins import AccessMixin, UserPassesTestMixin
 from django.core.exceptions import PermissionDenied
 from django.http import Http404, HttpResponseForbidden
-from django.utils.decorators import method_decorator
 
 
 class UserOwnerOrAdminMixin(UserPassesTestMixin):
