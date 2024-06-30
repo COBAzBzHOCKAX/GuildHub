@@ -4,12 +4,14 @@ Pillow
 django-filter
 django-quill-editor
 djangorestframework
-mysqlclient
 
 # Task queue
 celery
 redis
 celery[redis]
+
+# Database
+mysqlclient
 
 # Localization
 django-modeltranslation

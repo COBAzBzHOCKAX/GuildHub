@@ -1,10 +1,10 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
+from users.mixins import staff_required, StaffRequiredMixin
 
-from users.mixins import StaffRequiredMixin, staff_required
 from .forms import NewsletterForm
 from .models import Newsletter
 
@@ -61,6 +61,7 @@ def newsletter_publish(request, pk):
     newsletter.is_published = True
     newsletter.save()
     return redirect('newsletter_detail', pk=pk)
+
 
 @login_required
 @staff_required

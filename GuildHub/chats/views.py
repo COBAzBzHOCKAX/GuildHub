@@ -3,19 +3,18 @@ import json
 
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import generics, permissions
+from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 from rest_framework.views import APIView
-
 from users.mixins import user_is_not_banned
 from users.models import User  # Correct import for the custom User model
-from rest_framework.permissions import IsAuthenticated
 
 from .models import Chat, Message
 from .serializers import ChatSerializer, MessageSerializer
-from rest_framework.response import Response
-from rest_framework import status
 
 
 class ChatListCreate(generics.ListCreateAPIView):
@@ -105,6 +104,7 @@ def chat_room(request, chat_id):
 def chat_list(request):
     chats = Chat.objects.filter(participants=request.user)
     return render(request, 'chats/chat_list.html', {'chats': chats})
+
 
 @csrf_exempt
 def chat_messages(request, chat_id):

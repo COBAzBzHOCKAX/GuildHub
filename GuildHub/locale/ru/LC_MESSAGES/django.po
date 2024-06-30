@@ -148,7 +148,7 @@ msgstr "Чаты"
 #: .\templates\newsletter\newsletters.html:5
 #: .\templates\newsletter\newsletters.html:18
 msgid "Newsletters"
-msgstr "Рассылки"
+msgstr "Новости"
 
 #: .\newsletter\models.py:13 .\response_board\models.py:25
 msgid "Author"

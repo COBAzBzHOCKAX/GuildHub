@@ -8,4 +8,4 @@ class NewsletterConfig(AppConfig):
     verbose_name = _('Newsletters')
 
     def ready(self):
-        from . import signals
+        from . import signals  # noqa F401

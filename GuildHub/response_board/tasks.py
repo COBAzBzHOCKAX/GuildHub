@@ -1,8 +1,9 @@
 import logging
+
 from celery import shared_task
+from common.utils import send_email
 from django.utils.translation import gettext_lazy as _
 
-from common.utils import send_email
 from .models import Response
 
 logger = logging.getLogger('response_board.tasks')

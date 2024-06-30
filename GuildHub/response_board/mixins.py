@@ -3,7 +3,6 @@ from functools import wraps
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404
 
-from ad_board.models import Ad
 from .models import Response
 
 
@@ -21,7 +20,7 @@ class UserIsAdOwnerMixin:
 
 def user_is_ad_owner(view_func):
     """
-    Decorator to check if the user is the owner of the ad.
+    Ensure the user is the owner of the ad.
     """
     @wraps(view_func)
     def _wrapped_view(request, *args, **kwargs):

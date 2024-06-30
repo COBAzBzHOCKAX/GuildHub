@@ -1,10 +1,9 @@
-import logging
 from datetime import timedelta
+import logging
 
 from django.contrib.auth import get_user_model
-from django.urls import reverse
-
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django_quill.fields import QuillField
@@ -46,7 +45,7 @@ class Ad(models.Model):
             bool: True if the advertisement was published within the last 30 days, False otherwise.
         """
         logger = logging.getLogger('ad_board.models.Ad.published_within_the_last_30_days')
-        logger.debug(f'launching')
+        logger.debug('launching')
 
         if self.date_published:
             if timezone.now() - self.date_published <= timedelta(days=30):
@@ -54,8 +53,8 @@ class Ad(models.Model):
                              f'It was published at {(self.date_published).strftime("%Y-%m-%d %H:%M:%S")}.\n')
                 return True
 
-            logger.debug(f'Ad {self.id } was posted more than 30 days ago. \n'
-                         f'It was published at {(self.date_published).strftime("%Y-%m-%d %H:%M:%S")}.\n')
+            logger.debug(f'Ad {self.id} was posted more than 30 days ago. \n'
+                         f'It was published at {(self.date_published).strftime('%Y-%m-%d %H:%M:%S')}.\n')
         else:
             logger.debug(f'Ad {self.id} has no publication date')
 
@@ -67,9 +66,13 @@ class Ad(models.Model):
 
         If the advertisement is marked as published (`is_published` is True) and `date_published`
         is not set, this method sets `date_published` to the current time in UTC (`timezone.now()`).
+
+        This method ensures that advertisements are not artificially pushed to the top of the ad board
+        by re-publishing them within 30 days. Ads can only be republished and thus moved to the top of the
+        list after 30 days.
         """
         logger = logging.getLogger('ad_board.models.Ad.date_of_publication')
-        logger.debug(f'launching')
+        logger.debug('launching')
 
         if self.is_published and not self.published_within_the_last_30_days():
             self.date_published = timezone.now()
@@ -83,7 +86,7 @@ class Ad(models.Model):
     def publish_ad(self):
         """Publish the advertisement."""
         logger = logging.getLogger('ad_board.models.Ad.publish_ad')
-        logger.debug(f'launching')
+        logger.debug('launching')
 
         self.is_published = True
         self.date_of_publication()
@@ -93,7 +96,7 @@ class Ad(models.Model):
     def unpublish_ad(self):
         """Unpublish the advertisement."""
         logger = logging.getLogger('ad_board.models.Ad.unpublish_ad')
-        logger.debug(f'launching')
+        logger.debug('launching')
 
         self.is_published = False
         self.save()
@@ -118,24 +121,29 @@ class Ad(models.Model):
     def can_view(self, user):
         """Check if user can view the ad."""
         logger = logging.getLogger('ad_board.models.Ad.can_view')
-        logger.debug(f'launching')
+        logger.debug('launching')
 
+        # Check if the ad is published
         if self.is_published:
             logger.debug(f'Ad {self.id} is published\n')
             return True
 
+        # Check if the ad is owned by the user
         if user.is_authenticated and user == self.user:
             logger.debug(f'Ad {self.id} is owned by {user}\n')
             return True
 
+        # Check if the user has permission to view unpublished ads
         if user.is_staff:
             logger.debug(f'User {user} is staff\n')
             return True
 
+        # Check if the user has permission to view unpublished ads
         if user.is_superuser:
             logger.debug(f'User {user} is superuser\n')
             return True
 
+        # Check if the user has permission to view unpublished ads
         if user.has_perm('ad_board.view_unpublished_ad'):
             logger.debug(f'User {user} has view_unpublished_ad permission\n')
             return True

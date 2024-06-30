@@ -1,12 +1,11 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404  # noqa F401
 from django.urls import reverse, reverse_lazy
 from django.views.generic import DetailView, UpdateView, View
 from django.views.generic.edit import FormMixin
 
-from .forms import UserForm, UserDeactivateForm
-from .mixins import UserOwnerOrAdminMixin, ActiveUserRequiredMixin
+from .forms import UserDeactivateForm, UserForm
+from .mixins import ActiveUserRequiredMixin, UserOwnerOrAdminMixin
 from .models import User
 
 
@@ -48,9 +47,9 @@ class UserDeactivateView(LoginRequiredMixin, UserOwnerOrAdminMixin, FormMixin, V
         if form.is_valid():
             user.is_active = False
             user.save()
-            return JsonResponse({'status': 'success', 'message': 'User deactivated successfully.'})
+            return reverse_lazy('newsletters')
         else:
-            return JsonResponse({'status': 'error', 'errors': form.errors}, status=400)
+            return reverse_lazy('newsletters')
 
     def get(self, request, *args, **kwargs):
         user = self.get_object()

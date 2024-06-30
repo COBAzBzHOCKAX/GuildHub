@@ -20,21 +20,24 @@ load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Media files (uploaded user content)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY_DJANGO')
 
-# SECURITY WARNING: don't run with debug turned on in production!
 if os.environ.get("DEBUG") == "False":
     DEBUG = False
 else:
     DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", "COBAzBzHOCKAX.pythonanywhere.com"]
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
+ALLOWED_HOSTS = ["127.0.0.1", "COBAzBzHOCKAX.pythonanywhere.com"]
 
 
 # Application definition
@@ -212,6 +215,7 @@ LANGUAGES = (
     ('en', 'English'),
     ('ru', 'Russian'),
 )
+
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
@@ -222,11 +226,15 @@ LOCALE_PATHS = [
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
-STATIC_URL = "static/"
-STATIC_ROOT = BASE_DIR / "static/"
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
-MEDIA_URL = "media/"
-MEDIA_ROOT = BASE_DIR / "media/"
+MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 LOGGING = {
     'version': 1,
