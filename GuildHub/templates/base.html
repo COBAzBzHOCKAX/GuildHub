@@ -117,8 +117,13 @@
                 <div class="col-md-3">
                     <h5 style="color: #343a40;">{% trans 'Account' %}</h5>
                     <ul class="list-unstyled">
-                        <li><a href="{% url 'account_login' %}" class="text-dark">{% trans 'Login' %}</a></li>
-                        <li><a href="{% url 'account_signup' %}" class="text-dark">{% trans 'Sign Up' %}</a></li>
+                        {% if current_user %}
+                            <li><a href="{% url 'profile' current_user.pk %}" class="text-dark">{{ current_user.nickname }}</a></li>
+                            <li><a href="{% url 'account_logout' %}" class="text-dark">{% trans 'Logout' %}</a></li>
+                        {% else %}
+                            <li><a href="{% url 'account_login' %}" class="text-dark">{% trans 'Login' %}</a></li>
+                            <li><a href="{% url 'account_signup' %}" class="text-dark">{% trans 'Sign Up' %}</a></li>
+                        {% endif %}
                     </ul>
                 </div>
                 <div class="col-md-3">

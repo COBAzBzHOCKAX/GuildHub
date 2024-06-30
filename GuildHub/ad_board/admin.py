@@ -5,10 +5,6 @@ from modeltranslation.admin import TranslationAdmin
 from .models import Ad, Category
 
 
-class AdTranslation(TranslationAdmin):
-    model = Ad
-
-
 class CategoryTranslation(TranslationAdmin):
     model = Category
 

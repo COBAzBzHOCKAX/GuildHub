@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load allauth i18n %}
+{% block title %}
+    {% trans "Signup" %}
+{% endblock title %}
+{% block content %}
+    <div class="container mt-5">
+        <h1 class="mb-4">{% trans "Sign Up" %}</h1>
+        <p>
+            {% blocktranslate %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktranslate %}
+        </p>
+        {% if not SOCIALACCOUNT_ONLY %}
+            {% url 'account_signup' as action_url %}
+            <form method="post" action="{{ action_url }}" class="form-entrance form-signup">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="mb-3">
+                        {{ field.label_tag }}
+                        {{ field }}
+                        <p class="" {{ field.errors }}
+                    </div>
+                {% endfor %}
+                {{ redirect_field }}
+                <button type="submit" class="btn btn-primary btn-signup">{% trans "Sign Up" %}</button>
+            </form>
+        {% endif %}
+        {% if SOCIALACCOUNT_ENABLED %}
+            {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
+        {% endif %}
+    </div>
+{% endblock content %}

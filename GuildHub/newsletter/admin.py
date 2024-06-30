@@ -5,10 +5,6 @@ from modeltranslation.admin import TranslationAdmin
 from .models import Newsletter
 
 
-class NewsletterTranslation(TranslationAdmin):
-    model = Newsletter
-
-
 @admin.register(Newsletter)
 class NewsletterAdmin(admin.ModelAdmin):
     list_display = ('id', 'short_title', 'short_text', 'author', 'date_creation', 'is_published')

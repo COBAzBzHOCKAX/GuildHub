@@ -11,7 +11,7 @@
         <form method="post" enctype="multipart/form-data" class="profile-edit-form">
             {% csrf_token %}
             {% for field in form %}
-                <div class="form-group">
+                <div class="form-group {% if field.name == 'nickname' %}text-danger{% endif %}">
                     {{ field.label_tag }}
                     {{ field }}
                     {% if field.help_text %}
@@ -50,8 +50,8 @@
         margin-bottom: 5px;
         font-weight: bold;
     }
-    .profile-edit-form .form-group input, 
-    .profile-edit-form .form-group textarea, 
+    .profile-edit-form .form-group input,
+    .profile-edit-form .form-group textarea,
     .profile-edit-form .form-group select {
         width: 100%;
         padding: 10px;
@@ -68,6 +68,9 @@
     .profile-edit-form .alert {
         margin-top: 5px;
         font-size: 0.875em;
+    }
+    .text-danger label {
+        color: red; /* Красный цвет для метки поля */
     }
 </style>
 {% endblock styles %}
