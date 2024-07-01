@@ -8,7 +8,7 @@
         {% if user.avatar %}
             <img src="{{ user.avatar.url }}" alt="The avatar of the player {{ user.nickname }} - Guild Hub" class="avatar-img">
         {% else %}
-            <img src="{% static 'images/avatars/default.png' %}" alt="Default Avatar" class="avatar-img">
+            <img src="{% static '{{ MEDIA_URL }}images/avatars/default.png' %}" alt="Default Avatar" class="avatar-img">
         {% endif %}
     </div>
     <div class="user-info">
