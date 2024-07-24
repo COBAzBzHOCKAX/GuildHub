@@ -56,6 +56,10 @@ Adjust project settings in GuildHub/config/settings.py to match your local setup
  - Set appropriate values for `CELERY_BROKER_URL`, `CELERY_RESULT_BACKEND`, `CELERY_ACCEPT_CONTENT`, `CELERY_TASK_SERIALIZER`, `CELERY_RESULT_SERIALIZER`
  - For deployment, ensure `DEBUG = False`, specify `ALLOWED_HOSTS`, and set `SITE_URL`.
 
+6. ##### Add a database
+Download the database from the link: https://disk .yandex.ru/d/ta3mYttL-8iXQA . It contains static pages and examples of posts. \
+Add the database file to the GuildHub folder (the folder where the file is located manage.py ).
+
 ### Running the Project
 To run the project, run the following commands:
 #### Navigate to the Django project root:
@@ -89,7 +93,7 @@ celery -A config worker -l INFO --pool solo
 ```
 
 ### Configuration
-Additional project configurations can be adjusted by modifying configuration files according to your development or production environment needs.
+Additional project configurations can be adjusted by modifying configuration files according to your development or production environment needs. The project also uses the django-allauth library, so you need to add Social accounts via the Admin panel ( http://127.0.0.1:8000/admin / ).
 
 ### Usage
 After setting up, use the web interface to create, view, and manage announcements, exchange messages, and utilize other application features.
